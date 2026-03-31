@@ -1,0 +1,48 @@
+# Cloud providers and PaaS platforms.
+technologies:
+  - id: aws
+    name: Amazon Web Services
+    category: cloud
+    vendor: Amazon
+  - id: gcp
+    name: Google Cloud Platform
+    category: cloud
+    vendor: Google
+  - id: azure
+    name: Microsoft Azure
+    category: cloud
+    vendor: Microsoft
+  - id: cloudflare
+    name: Cloudflare
+    category: cloud
+    vendor: Cloudflare
+  - id: vercel
+    name: Vercel
+    category: cloud
+    vendor: Vercel
+  - id: netlify
+    name: Netlify
+    category: cloud
+    vendor: Netlify
+  - id: heroku
+    name: Heroku
+    category: cloud
+    vendor: Salesforce
+    aliases: [herokuish]
+  - id: digitalocean
+    name: DigitalOcean
+    category: cloud
+    vendor: DigitalOcean
+    aliases: [do]
+  - id: fly
+    name: Fly.io
+    category: cloud
+    vendor: Fly.io
+  - id: railway
+    name: Railway
+    category: cloud
+    vendor: Railway
+  - id: render
+    name: Render
+    category: cloud
+    vendor: Render

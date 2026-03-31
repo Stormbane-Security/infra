@@ -1,0 +1,104 @@
+# GCP managed services.
+technologies:
+  - id: gcp-compute
+    name: Compute Engine
+    category: platform
+    cloud_provider: gcp
+    vendor: Google
+    aliases: [gce]
+  - id: gcp-gke
+    name: Google Kubernetes Engine
+    category: container
+    cloud_provider: gcp
+    vendor: Google
+    aliases: [gke]
+  - id: gcp-cloud-run
+    name: Cloud Run
+    category: platform
+    cloud_provider: gcp
+    vendor: Google
+    tags: [serverless]
+    aliases: [cloud-run]
+  - id: gcp-cloud-functions
+    name: Cloud Functions
+    category: platform
+    cloud_provider: gcp
+    vendor: Google
+    tags: [serverless]
+  - id: gcp-cloud-sql
+    name: Cloud SQL
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-spanner
+    name: Cloud Spanner
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-bigtable
+    name: Cloud Bigtable
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+    tags: [nosql]
+  - id: gcp-firestore
+    name: Cloud Firestore
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+    tags: [nosql]
+  - id: gcp-bigquery
+    name: BigQuery
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+    tags: [warehouse]
+  - id: gcp-memorystore
+    name: Memorystore
+    category: database
+    cloud_provider: gcp
+    vendor: Google
+    tags: [cache]
+  - id: gcp-gcs
+    name: Cloud Storage
+    category: cloud
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-pubsub
+    name: Cloud Pub/Sub
+    category: messaging
+    cloud_provider: gcp
+    vendor: Google
+    tags: [pubsub]
+  - id: gcp-cloud-cdn
+    name: Cloud CDN
+    category: cdn
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-cloud-armor
+    name: Cloud Armor
+    category: security
+    cloud_provider: gcp
+    vendor: Google
+    tags: [waf]
+  - id: gcp-cloud-dns
+    name: Cloud DNS
+    category: cloud
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-artifact-registry
+    name: Artifact Registry
+    category: container
+    cloud_provider: gcp
+    vendor: Google
+    tags: [registry]
+  - id: gcp-secret-manager
+    name: Secret Manager
+    category: security
+    cloud_provider: gcp
+    vendor: Google
+  - id: gcp-cloud-logging
+    name: Cloud Logging
+    category: monitoring
+    cloud_provider: gcp
+    vendor: Google

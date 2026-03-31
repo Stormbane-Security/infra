@@ -1,0 +1,90 @@
+# Azure managed services.
+technologies:
+  - id: azure-vm
+    name: Azure Virtual Machines
+    category: platform
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-aks
+    name: Azure Kubernetes Service
+    category: container
+    cloud_provider: azure
+    vendor: Microsoft
+    aliases: [aks]
+  - id: azure-app-service
+    name: Azure App Service
+    category: platform
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-functions
+    name: Azure Functions
+    category: platform
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [serverless]
+  - id: azure-sql
+    name: Azure SQL Database
+    category: database
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-cosmos-db
+    name: Azure Cosmos DB
+    category: database
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [nosql]
+  - id: azure-postgres
+    name: Azure Database for PostgreSQL
+    category: database
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-redis
+    name: Azure Cache for Redis
+    category: database
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [cache]
+  - id: azure-blob
+    name: Azure Blob Storage
+    category: cloud
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-acr
+    name: Azure Container Registry
+    category: container
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [registry]
+  - id: azure-cdn
+    name: Azure CDN
+    category: cdn
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-front-door
+    name: Azure Front Door
+    category: cdn
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [waf]
+  - id: azure-service-bus
+    name: Azure Service Bus
+    category: messaging
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [queue]
+  - id: azure-event-hubs
+    name: Azure Event Hubs
+    category: messaging
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [streaming]
+  - id: azure-key-vault
+    name: Azure Key Vault
+    category: security
+    cloud_provider: azure
+    vendor: Microsoft
+  - id: azure-monitor
+    name: Azure Monitor
+    category: monitoring
+    cloud_provider: azure
+    vendor: Microsoft

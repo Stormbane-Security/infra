@@ -1,0 +1,148 @@
+# AWS managed services.
+technologies:
+  - id: aws-ec2
+    name: Amazon EC2
+    category: platform
+    cloud_provider: aws
+    vendor: Amazon
+    default_ports: [22, 80, 443]
+  - id: aws-ecs
+    name: Amazon ECS
+    category: container
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-eks
+    name: Amazon EKS
+    category: container
+    cloud_provider: aws
+    vendor: Amazon
+    aliases: [eks]
+  - id: aws-lambda
+    name: AWS Lambda
+    category: platform
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [serverless]
+  - id: aws-fargate
+    name: AWS Fargate
+    category: container
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [serverless]
+  - id: aws-s3
+    name: Amazon S3
+    category: cloud
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-rds
+    name: Amazon RDS
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-dynamodb
+    name: Amazon DynamoDB
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [nosql, serverless]
+  - id: aws-elasticache
+    name: Amazon ElastiCache
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [cache]
+  - id: aws-redshift
+    name: Amazon Redshift
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [warehouse]
+  - id: aws-opensearch
+    name: Amazon OpenSearch
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [search]
+  - id: aws-documentdb
+    name: Amazon DocumentDB
+    category: database
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [nosql]
+  - id: aws-cloudfront
+    name: Amazon CloudFront
+    category: cdn
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-alb
+    name: AWS Application Load Balancer
+    category: server
+    cloud_provider: aws
+    vendor: Amazon
+    layer: load_balancer
+    aliases: [aws-elb]
+  - id: aws-api-gateway
+    name: Amazon API Gateway
+    category: gateway
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-route53
+    name: Amazon Route 53
+    category: cloud
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-cognito
+    name: Amazon Cognito
+    category: auth
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-waf
+    name: AWS WAF
+    category: security
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-guardduty
+    name: Amazon GuardDuty
+    category: security
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-sqs
+    name: Amazon SQS
+    category: messaging
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [queue]
+  - id: aws-sns
+    name: Amazon SNS
+    category: messaging
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [pubsub]
+  - id: aws-kinesis
+    name: Amazon Kinesis
+    category: messaging
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [streaming]
+  - id: aws-ses
+    name: Amazon SES
+    category: cloud
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [email]
+  - id: aws-ecr
+    name: Amazon ECR
+    category: container
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [registry]
+  - id: aws-cloudwatch
+    name: Amazon CloudWatch
+    category: monitoring
+    cloud_provider: aws
+    vendor: Amazon
+  - id: aws-cloudtrail
+    name: AWS CloudTrail
+    category: monitoring
+    cloud_provider: aws
+    vendor: Amazon
