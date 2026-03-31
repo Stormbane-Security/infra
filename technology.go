@@ -1,5 +1,13 @@
 package infra
 
+import (
+	"embed"
+	"fmt"
+	"io/fs"
+
+	"gopkg.in/yaml.v3"
+)
+
 // Technology is a canonical identifier for any piece of infrastructure.
 // Format: lowercase, hyphen-separated (e.g., "cloud-run", "next-js").
 // These are stable identifiers — once assigned, they never change.
@@ -43,50 +51,85 @@ const (
 // a technology in one place.
 type TechMeta struct {
 	// ID is the canonical identifier (e.g., "nginx", "next-js", "gke").
-	ID Technology
+	ID Technology `yaml:"id"`
 
 	// Name is the human-readable display name (e.g., "NGINX", "Next.js", "GKE").
-	Name string
+	Name string `yaml:"name"`
 
 	// Category is the primary functional classification.
-	Category Category
+	Category Category `yaml:"category"`
 
 	// Layer is the infrastructure layer (only set for server/proxy/CDN types).
-	Layer InfraLayer
+	Layer InfraLayer `yaml:"layer,omitempty"`
 
 	// Vendor is the company or project that maintains this technology.
-	Vendor string
+	Vendor string `yaml:"vendor,omitempty"`
 
 	// CloudProvider is set when this technology is specific to a cloud provider.
 	// Empty for cloud-agnostic technologies.
-	CloudProvider Technology
+	CloudProvider Technology `yaml:"cloud_provider,omitempty"`
 
 	// OpenSource indicates whether this is an open-source project.
-	OpenSource bool
+	OpenSource bool `yaml:"open_source,omitempty"`
 
 	// DefaultPorts lists the TCP ports this technology typically listens on.
-	DefaultPorts []int
+	DefaultPorts []int `yaml:"default_ports,omitempty"`
 
 	// DockerImage is the canonical container image (e.g., "nginx:latest").
 	// Used by Drydock for container-based scenarios.
-	DockerImage string
+	DockerImage string `yaml:"docker_image,omitempty"`
 
 	// HelmChart is the canonical Helm chart reference (e.g., "bitnami/nginx").
 	// Used by Drydock for Kubernetes-based scenarios.
-	HelmChart string
+	HelmChart string `yaml:"helm_chart,omitempty"`
 
 	// Aliases are alternative names that map to this technology
 	// (e.g., "node" → "nodejs", "pg" → "postgresql").
-	Aliases []string
+	Aliases []string `yaml:"aliases,omitempty"`
 
 	// Tags are free-form labels for filtering (e.g., "managed", "serverless", "oss").
-	Tags []string
+	Tags []string `yaml:"tags,omitempty"`
 }
 
 // Registry is the global technology catalog. All technologies known to the
 // Stormbane ecosystem are registered here. Beacon uses this for fingerprint
 // matching; Drydock uses it for scenario validation and image resolution.
 var Registry = map[Technology]*TechMeta{}
+
+// techFile is the YAML wrapper for a list of technologies.
+type techFile struct {
+	Technologies []TechMeta `yaml:"technologies"`
+}
+
+//go:embed data/technologies/*.yaml
+var techFS embed.FS
+
+func init() {
+	if err := loadTechnologies(); err != nil {
+		panic("infra: " + err.Error())
+	}
+}
+
+func loadTechnologies() error {
+	return fs.WalkDir(techFS, "data/technologies", func(path string, d fs.DirEntry, err error) error {
+		if err != nil || d.IsDir() {
+			return err
+		}
+		data, err := techFS.ReadFile(path)
+		if err != nil {
+			return fmt.Errorf("read %s: %w", path, err)
+		}
+		var f techFile
+		if err := yaml.Unmarshal(data, &f); err != nil {
+			return fmt.Errorf("parse %s: %w", path, err)
+		}
+		for i := range f.Technologies {
+			m := &f.Technologies[i]
+			Register(m)
+		}
+		return nil
+	})
+}
 
 // Register adds a technology to the global registry.
 // Panics on duplicate IDs (catches mistakes at init time).
@@ -133,3 +176,58 @@ func ByCloud(provider Technology) []*TechMeta {
 	}
 	return result
 }
+
+// Well-known technology constants for use in Go code.
+const (
+	AWS          Technology = "aws"
+	GCP          Technology = "gcp"
+	Azure        Technology = "azure"
+	Cloudflare   Technology = "cloudflare"
+	Vercel       Technology = "vercel"
+	Netlify      Technology = "netlify"
+	Heroku       Technology = "heroku"
+	DigitalOcean Technology = "digitalocean"
+	Linode       Technology = "linode"
+	Hetzner      Technology = "hetzner"
+	OCI          Technology = "oci"
+	Fly          Technology = "fly"
+	Railway      Technology = "railway"
+	Render       Technology = "render"
+
+	Nginx     Technology = "nginx"
+	Apache    Technology = "apache"
+	Caddy     Technology = "caddy"
+	Traefik   Technology = "traefik"
+	Envoy     Technology = "envoy"
+	HAProxy   Technology = "haproxy"
+	Kong      Technology = "kong"
+
+	Docker     Technology = "docker"
+	Kubernetes Technology = "kubernetes"
+	K3s        Technology = "k3s"
+
+	PostgreSQL    Technology = "postgresql"
+	MySQL         Technology = "mysql"
+	Redis         Technology = "redis"
+	Elasticsearch Technology = "elasticsearch"
+	MongoDB       Technology = "mongodb"
+	Kafka         Technology = "kafka"
+
+	NextJS  Technology = "next-js"
+	Rails   Technology = "rails"
+	Django  Technology = "django"
+	Spring  Technology = "spring"
+	Laravel Technology = "laravel"
+	Express Technology = "express"
+
+	Prometheus Technology = "prometheus"
+	Grafana    Technology = "grafana"
+
+	Vault    Technology = "vault"
+	Keycloak Technology = "keycloak"
+	Okta     Technology = "okta"
+
+	Ethereum Technology = "ethereum"
+	Bitcoin  Technology = "bitcoin"
+	Solana   Technology = "solana"
+)

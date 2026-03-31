@@ -1,0 +1,160 @@
+# Databases, caches, search engines, and message brokers.
+technologies:
+  # ── Relational Databases ──
+  - id: postgresql
+    name: PostgreSQL
+    category: database
+    open_source: true
+    vendor: PostgreSQL Global Development Group
+    default_ports: [5432]
+    docker_image: postgres:16-alpine
+    aliases: [postgres, pg]
+  - id: mysql
+    name: MySQL
+    category: database
+    open_source: true
+    vendor: Oracle
+    default_ports: [3306]
+    docker_image: mysql:8
+  - id: mariadb
+    name: MariaDB
+    category: database
+    open_source: true
+    vendor: MariaDB Foundation
+    default_ports: [3306]
+    docker_image: mariadb:11
+  - id: mssql
+    name: Microsoft SQL Server
+    category: database
+    vendor: Microsoft
+    default_ports: [1433]
+    aliases: [sqlserver]
+  - id: oracle-db
+    name: Oracle Database
+    category: database
+    vendor: Oracle
+    default_ports: [1521]
+  - id: cockroachdb
+    name: CockroachDB
+    category: database
+    open_source: true
+    vendor: Cockroach Labs
+    default_ports: [26257, 8080]
+    docker_image: cockroachdb/cockroach:latest
+
+  # ── NoSQL / Document Databases ──
+  - id: mongodb
+    name: MongoDB
+    category: database
+    open_source: true
+    vendor: MongoDB Inc
+    default_ports: [27017]
+    docker_image: mongo:7
+    tags: [nosql]
+  - id: couchdb
+    name: CouchDB
+    category: database
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [5984]
+    docker_image: couchdb:latest
+    tags: [nosql]
+  - id: cassandra
+    name: Apache Cassandra
+    category: database
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [9042]
+    docker_image: cassandra:latest
+    tags: [nosql]
+
+  # ── Cache / In-Memory ──
+  - id: redis
+    name: Redis
+    category: database
+    open_source: true
+    vendor: Redis Ltd
+    default_ports: [6379]
+    docker_image: redis:7-alpine
+    tags: [cache]
+  - id: memcached
+    name: Memcached
+    category: database
+    open_source: true
+    vendor: Memcached
+    default_ports: [11211]
+    docker_image: memcached:alpine
+    tags: [cache]
+
+  # ── Search Engines ──
+  - id: elasticsearch
+    name: Elasticsearch
+    category: database
+    open_source: true
+    vendor: Elastic
+    default_ports: [9200, 9300]
+    docker_image: elasticsearch:8.14.0
+    tags: [search]
+    aliases: [elastic]
+  - id: opensearch
+    name: OpenSearch
+    category: database
+    open_source: true
+    vendor: Amazon/OpenSearch
+    default_ports: [9200]
+    docker_image: opensearchproject/opensearch:latest
+    tags: [search]
+
+  # ── Time Series ──
+  - id: influxdb
+    name: InfluxDB
+    category: database
+    open_source: true
+    vendor: InfluxData
+    default_ports: [8086]
+    docker_image: influxdb:latest
+    tags: [timeseries]
+
+  # ── Graph Databases ──
+  - id: neo4j
+    name: Neo4j
+    category: database
+    open_source: true
+    vendor: Neo4j Inc
+    default_ports: [7474, 7687]
+    docker_image: neo4j:latest
+    tags: [graph]
+
+  # ── Message Brokers & Streaming ──
+  - id: kafka
+    name: Apache Kafka
+    category: messaging
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [9092]
+    docker_image: confluentinc/cp-kafka:latest
+    tags: [streaming]
+  - id: rabbitmq
+    name: RabbitMQ
+    category: messaging
+    open_source: true
+    vendor: VMware/Broadcom
+    default_ports: [5672, 15672]
+    docker_image: rabbitmq:3-management-alpine
+    tags: [queue]
+    aliases: [amqp]
+  - id: nats
+    name: NATS
+    category: messaging
+    open_source: true
+    vendor: Synadia
+    default_ports: [4222]
+    docker_image: nats:alpine
+    tags: [pubsub]
+  - id: zookeeper
+    name: Apache ZooKeeper
+    category: messaging
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [2181]
+    docker_image: zookeeper:latest

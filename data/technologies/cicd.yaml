@@ -1,0 +1,124 @@
+# CI/CD platforms, build systems, and GitOps tools.
+technologies:
+  # ── CI/CD Platforms ──
+  - id: github-actions
+    name: GitHub Actions
+    category: cicd
+    vendor: GitHub/Microsoft
+    tags: [ci, cd]
+  - id: gitlab-ci
+    name: GitLab CI/CD
+    category: cicd
+    open_source: true
+    vendor: GitLab
+    tags: [ci, cd]
+    aliases: [gitlab-ci-cd]
+  - id: jenkins
+    name: Jenkins
+    category: cicd
+    open_source: true
+    vendor: Jenkins Project
+    default_ports: [8080]
+    docker_image: jenkins/jenkins:lts
+    tags: [ci, cd]
+  - id: teamcity
+    name: TeamCity
+    category: cicd
+    vendor: JetBrains
+    default_ports: [8111]
+    tags: [ci, cd]
+  - id: circleci
+    name: CircleCI
+    category: cicd
+    vendor: CircleCI
+    tags: [ci, cd]
+  - id: travis-ci
+    name: Travis CI
+    category: cicd
+    open_source: true
+    vendor: Travis CI
+    tags: [ci, cd]
+    aliases: [travis]
+  - id: drone
+    name: Drone CI
+    category: cicd
+    open_source: true
+    vendor: Harness
+    default_ports: [80, 443]
+    docker_image: drone/drone:latest
+    tags: [ci, cd]
+    aliases: [drone-ci]
+  - id: buildkite
+    name: Buildkite
+    category: cicd
+    vendor: Buildkite
+    tags: [ci, cd]
+  - id: azure-devops
+    name: Azure DevOps
+    category: cicd
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [ci, cd]
+    aliases: [azure-pipelines, vsts]
+  - id: aws-codepipeline
+    name: AWS CodePipeline
+    category: cicd
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [ci, cd]
+    aliases: [codepipeline]
+  - id: gcp-cloud-build
+    name: Cloud Build
+    category: cicd
+    cloud_provider: gcp
+    vendor: Google
+    tags: [ci, cd]
+    aliases: [cloud-build]
+  - id: woodpecker
+    name: Woodpecker CI
+    category: cicd
+    open_source: true
+    vendor: Woodpecker
+    docker_image: woodpeckerci/woodpecker-server:latest
+    tags: [ci, cd]
+  - id: concourse
+    name: Concourse CI
+    category: cicd
+    open_source: true
+    vendor: VMware
+    docker_image: concourse/concourse:latest
+    tags: [ci, cd]
+
+  # ── GitOps & Deployment ──
+  - id: argocd
+    name: Argo CD
+    category: cicd
+    open_source: true
+    vendor: CNCF/Intuit
+    default_ports: [8080, 8443]
+    tags: [gitops, cd]
+    aliases: [argo-cd]
+  - id: fluxcd
+    name: Flux CD
+    category: cicd
+    open_source: true
+    vendor: CNCF/Weaveworks
+    tags: [gitops, cd]
+    aliases: [flux]
+  - id: tekton
+    name: Tekton Pipelines
+    category: cicd
+    open_source: true
+    vendor: CNCF/Google
+    tags: [ci, cd, k8s-native]
+  - id: spinnaker
+    name: Spinnaker
+    category: cicd
+    open_source: true
+    vendor: Netflix/Google
+    tags: [cd]
+  - id: harness
+    name: Harness
+    category: cicd
+    vendor: Harness
+    tags: [ci, cd]

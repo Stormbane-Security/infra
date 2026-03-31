@@ -1,0 +1,165 @@
+# Observability: metrics, logging, tracing, and APM.
+technologies:
+  # ── Metrics & Monitoring ──
+  - id: prometheus
+    name: Prometheus
+    category: monitoring
+    open_source: true
+    vendor: CNCF
+    default_ports: [9090]
+    docker_image: prom/prometheus:latest
+    tags: [metrics]
+  - id: grafana
+    name: Grafana
+    category: monitoring
+    open_source: true
+    vendor: Grafana Labs
+    default_ports: [3000]
+    docker_image: grafana/grafana:latest
+    tags: [dashboards]
+  - id: datadog
+    name: Datadog
+    category: monitoring
+    vendor: Datadog
+    tags: [apm, metrics, logs]
+  - id: splunk
+    name: Splunk
+    category: monitoring
+    vendor: Cisco/Splunk
+    default_ports: [8000, 8089, 9997]
+    tags: [siem, logs]
+  - id: newrelic
+    name: New Relic
+    category: monitoring
+    vendor: New Relic
+    tags: [apm]
+  - id: victoriametrics
+    name: VictoriaMetrics
+    category: monitoring
+    open_source: true
+    vendor: VictoriaMetrics
+    default_ports: [8428]
+    docker_image: victoriametrics/victoria-metrics:latest
+    tags: [metrics, tsdb]
+  - id: thanos
+    name: Thanos
+    category: monitoring
+    open_source: true
+    vendor: CNCF
+    tags: [metrics]
+  - id: mimir
+    name: Grafana Mimir
+    category: monitoring
+    open_source: true
+    vendor: Grafana Labs
+    tags: [metrics]
+  - id: nagios
+    name: Nagios
+    category: monitoring
+    open_source: true
+    vendor: Nagios Enterprises
+    default_ports: [5666]
+    tags: [infra-monitoring]
+  - id: zabbix
+    name: Zabbix
+    category: monitoring
+    open_source: true
+    vendor: Zabbix
+    default_ports: [10050, 10051]
+    docker_image: zabbix/zabbix-server-pgsql:latest
+    tags: [infra-monitoring]
+
+  # ── Tracing & APM ──
+  - id: jaeger
+    name: Jaeger
+    category: monitoring
+    open_source: true
+    vendor: CNCF/Uber
+    default_ports: [16686, 14268]
+    docker_image: jaegertracing/all-in-one:latest
+    tags: [tracing]
+  - id: zipkin
+    name: Zipkin
+    category: monitoring
+    open_source: true
+    vendor: OpenZipkin
+    default_ports: [9411]
+    docker_image: openzipkin/zipkin:latest
+    tags: [tracing]
+  - id: opentelemetry
+    name: OpenTelemetry
+    category: monitoring
+    open_source: true
+    vendor: CNCF
+    tags: [tracing, metrics, logs]
+    aliases: [otel]
+  - id: sentry
+    name: Sentry
+    category: monitoring
+    open_source: true
+    vendor: Sentry
+    tags: [errors, apm]
+
+  # ── Logging ──
+  - id: loki
+    name: Grafana Loki
+    category: monitoring
+    open_source: true
+    vendor: Grafana Labs
+    default_ports: [3100]
+    docker_image: grafana/loki:latest
+    tags: [logs]
+  - id: elk
+    name: ELK Stack
+    category: monitoring
+    open_source: true
+    vendor: Elastic
+    tags: [logs, search]
+    aliases: [elastic-stack]
+  - id: fluentd
+    name: Fluentd
+    category: monitoring
+    open_source: true
+    vendor: CNCF/Treasure Data
+    tags: [logs]
+    aliases: [td-agent]
+  - id: fluent-bit
+    name: Fluent Bit
+    category: monitoring
+    open_source: true
+    vendor: CNCF/Calyptia
+    tags: [logs]
+  - id: logstash
+    name: Logstash
+    category: monitoring
+    open_source: true
+    vendor: Elastic
+    default_ports: [5044, 9600]
+    tags: [logs]
+  - id: kibana
+    name: Kibana
+    category: monitoring
+    open_source: true
+    vendor: Elastic
+    default_ports: [5601]
+    tags: [dashboards, logs]
+
+  # ── Incident Management ──
+  - id: pagerduty
+    name: PagerDuty
+    category: monitoring
+    vendor: PagerDuty
+    tags: [incident]
+  - id: opsgenie
+    name: OpsGenie
+    category: monitoring
+    vendor: Atlassian
+    tags: [incident]
+
+  # ── Tracing Backend ──
+  - id: tempo
+    name: Grafana Tempo
+    category: monitoring
+    open_source: true
+    vendor: Grafana Labs
+    tags: [tracing]

@@ -1,0 +1,206 @@
+# Web3: blockchains, validators, wallets, and decentralized infrastructure.
+technologies:
+  # ── L1 Blockchains ──
+  - id: ethereum
+    name: Ethereum
+    category: web3
+    open_source: true
+    vendor: Ethereum Foundation
+    default_ports: [8545, 8546, 30303]
+    tags: [l1, evm]
+  - id: bitcoin
+    name: Bitcoin
+    category: web3
+    open_source: true
+    vendor: Bitcoin Core
+    default_ports: [8332, 8333]
+    tags: [l1]
+  - id: solana
+    name: Solana
+    category: web3
+    open_source: true
+    vendor: Solana Foundation
+    default_ports: [8899, 8900]
+    tags: [l1]
+  - id: bnb-chain
+    name: BNB Chain
+    category: web3
+    open_source: true
+    vendor: Binance
+    tags: [l1, evm]
+    aliases: [bsc, binance-smart-chain]
+  - id: cosmos
+    name: Cosmos
+    category: web3
+    open_source: true
+    vendor: Interchain Foundation
+    default_ports: [26656, 26657]
+    tags: [l1, ibc]
+  - id: polkadot
+    name: Polkadot
+    category: web3
+    open_source: true
+    vendor: Web3 Foundation
+    default_ports: [9944, 30333]
+    tags: [l1]
+  - id: avalanche
+    name: Avalanche
+    category: web3
+    open_source: true
+    vendor: Ava Labs
+    default_ports: [9650, 9651]
+    tags: [l1, evm]
+
+  # ── L2 / Rollups ──
+  - id: polygon
+    name: Polygon
+    category: web3
+    open_source: true
+    vendor: Polygon Labs
+    tags: [l2, evm]
+  - id: arbitrum
+    name: Arbitrum
+    category: web3
+    open_source: true
+    vendor: Offchain Labs
+    tags: [l2, evm, rollup]
+  - id: optimism
+    name: Optimism
+    category: web3
+    open_source: true
+    vendor: OP Labs
+    tags: [l2, evm, rollup]
+
+  # ── Ethereum Execution Clients ──
+  - id: geth
+    name: Geth
+    category: web3
+    open_source: true
+    vendor: Ethereum Foundation
+    default_ports: [8545, 8546, 30303]
+    docker_image: ethereum/client-go:latest
+    tags: [execution-client, evm]
+    aliases: [go-ethereum]
+  - id: nethermind
+    name: Nethermind
+    category: web3
+    open_source: true
+    vendor: Nethermind
+    default_ports: [8545, 30303]
+    docker_image: nethermind/nethermind:latest
+    tags: [execution-client, evm]
+  - id: besu
+    name: Hyperledger Besu
+    category: web3
+    open_source: true
+    vendor: Hyperledger/ConsenSys
+    default_ports: [8545, 30303]
+    docker_image: hyperledger/besu:latest
+    tags: [execution-client, evm]
+  - id: erigon
+    name: Erigon
+    category: web3
+    open_source: true
+    vendor: Erigon
+    default_ports: [8545, 30303]
+    tags: [execution-client, evm]
+
+  # ── Ethereum Consensus Clients ──
+  - id: lighthouse
+    name: Lighthouse
+    category: web3
+    open_source: true
+    vendor: Sigma Prime
+    default_ports: [5052, 9000]
+    tags: [consensus-client, validator]
+  - id: prysm
+    name: Prysm
+    category: web3
+    open_source: true
+    vendor: Offchain Labs
+    default_ports: [3500, 4000, 13000]
+    tags: [consensus-client, validator]
+  - id: teku
+    name: Teku
+    category: web3
+    open_source: true
+    vendor: ConsenSys
+    default_ports: [5051, 9000]
+    docker_image: consensys/teku:latest
+    tags: [consensus-client, validator]
+  - id: lodestar
+    name: Lodestar
+    category: web3
+    open_source: true
+    vendor: ChainSafe
+    default_ports: [9596, 9000]
+    tags: [consensus-client, validator]
+
+  # ── Decentralized Storage ──
+  - id: ipfs
+    name: IPFS
+    category: web3
+    open_source: true
+    vendor: Protocol Labs
+    default_ports: [4001, 5001, 8080]
+    docker_image: ipfs/kubo:latest
+    tags: [storage, p2p]
+  - id: filecoin
+    name: Filecoin
+    category: web3
+    open_source: true
+    vendor: Protocol Labs
+    tags: [storage, l1]
+  - id: arweave
+    name: Arweave
+    category: web3
+    open_source: true
+    vendor: Arweave
+    tags: [storage, permanent]
+
+  # ── Smart Contract Dev Frameworks ──
+  - id: hardhat
+    name: Hardhat
+    category: web3
+    open_source: true
+    vendor: Nomic Foundation
+    tags: [dev-framework, evm]
+  - id: foundry
+    name: Foundry
+    category: web3
+    open_source: true
+    vendor: Paradigm
+    tags: [dev-framework, evm]
+    aliases: [forge]
+  - id: truffle
+    name: Truffle
+    category: web3
+    open_source: true
+    vendor: ConsenSys
+    tags: [dev-framework, evm]
+  - id: brownie
+    name: Brownie
+    category: web3
+    open_source: true
+    vendor: Community
+    tags: [dev-framework, evm, python]
+  - id: anchor
+    name: Anchor
+    category: web3
+    open_source: true
+    vendor: Coral/Backpack
+    tags: [dev-framework, solana]
+
+  # ── Middleware / Oracles / Indexing ──
+  - id: the-graph
+    name: The Graph
+    category: web3
+    open_source: true
+    vendor: The Graph Foundation
+    tags: [indexing, subgraph]
+  - id: chainlink
+    name: Chainlink
+    category: web3
+    open_source: true
+    vendor: Chainlink Labs
+    tags: [oracle]

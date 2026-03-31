@@ -1,0 +1,210 @@
+# Azure cloud resource types.
+resources:
+  # ── Compute ──
+  - type: azure.virtual_machine
+    name: Virtual Machine
+    provider: azure
+    service: compute
+    category: compute
+    cli_describe: "az vm show --ids {id}"
+    terraform_type: azurerm_linux_virtual_machine
+  - type: azure.vmss
+    name: VM Scale Set
+    provider: azure
+    service: compute
+    category: compute
+    cli_describe: "az vmss show --ids {id}"
+    terraform_type: azurerm_linux_virtual_machine_scale_set
+  - type: azure.app_service
+    name: App Service
+    provider: azure
+    service: web
+    category: compute
+    cli_describe: "az webapp show --ids {id}"
+    terraform_type: azurerm_linux_web_app
+  - type: azure.function_app
+    name: Function App
+    provider: azure
+    service: web
+    category: serverless
+    cli_describe: "az functionapp show --ids {id}"
+    terraform_type: azurerm_linux_function_app
+
+  # ── Containers ──
+  - type: azure.aks_cluster
+    name: AKS Cluster
+    provider: azure
+    service: containerservice
+    category: container
+    cli_describe: "az aks show --ids {id}"
+    terraform_type: azurerm_kubernetes_cluster
+  - type: azure.acr
+    name: Container Registry
+    provider: azure
+    service: containerregistry
+    category: registry
+    cli_describe: "az acr show --ids {id}"
+    terraform_type: azurerm_container_registry
+  - type: azure.container_instance
+    name: Container Instance
+    provider: azure
+    service: containerinstance
+    category: container
+    cli_describe: "az container show --ids {id}"
+    terraform_type: azurerm_container_group
+
+  # ── Storage ──
+  - type: azure.storage_account
+    name: Storage Account
+    provider: azure
+    service: storage
+    category: storage
+    cli_describe: "az storage account show --ids {id}"
+    terraform_type: azurerm_storage_account
+  - type: azure.blob_container
+    name: Blob Container
+    provider: azure
+    service: storage
+    category: storage
+    terraform_type: azurerm_storage_container
+
+  # ── Databases ──
+  - type: azure.sql_server
+    name: SQL Server
+    provider: azure
+    service: sql
+    category: database
+    cli_describe: "az sql server show --ids {id}"
+    terraform_type: azurerm_mssql_server
+  - type: azure.sql_database
+    name: SQL Database
+    provider: azure
+    service: sql
+    category: database
+    cli_describe: "az sql db show --ids {id}"
+    terraform_type: azurerm_mssql_database
+  - type: azure.cosmos_account
+    name: Cosmos DB Account
+    provider: azure
+    service: documentdb
+    category: database
+    cli_describe: "az cosmosdb show --ids {id}"
+    terraform_type: azurerm_cosmosdb_account
+  - type: azure.postgres_flexible
+    name: PostgreSQL Flexible Server
+    provider: azure
+    service: dbforpostgresql
+    category: database
+    cli_describe: "az postgres flexible-server show --ids {id}"
+    terraform_type: azurerm_postgresql_flexible_server
+  - type: azure.redis_cache
+    name: Redis Cache
+    provider: azure
+    service: cache
+    category: cache
+    cli_describe: "az redis show --ids {id}"
+    terraform_type: azurerm_redis_cache
+
+  # ── Networking ──
+  - type: azure.vnet
+    name: Virtual Network
+    provider: azure
+    service: network
+    category: network
+    cli_describe: "az network vnet show --ids {id}"
+    terraform_type: azurerm_virtual_network
+  - type: azure.nsg
+    name: Network Security Group
+    provider: azure
+    service: network
+    category: network
+    cli_describe: "az network nsg show --ids {id}"
+    terraform_type: azurerm_network_security_group
+  - type: azure.public_ip
+    name: Public IP Address
+    provider: azure
+    service: network
+    category: network
+    cli_describe: "az network public-ip show --ids {id}"
+    terraform_type: azurerm_public_ip
+  - type: azure.load_balancer
+    name: Load Balancer
+    provider: azure
+    service: network
+    category: network
+    cli_describe: "az network lb show --ids {id}"
+    terraform_type: azurerm_lb
+  - type: azure.front_door
+    name: Front Door
+    provider: azure
+    service: cdn
+    category: cdn
+    cli_describe: "az afd profile show --ids {id}"
+    terraform_type: azurerm_cdn_frontdoor_profile
+  - type: azure.dns_zone
+    name: DNS Zone
+    provider: azure
+    service: dns
+    category: network
+    cli_describe: "az network dns zone show --ids {id}"
+    terraform_type: azurerm_dns_zone
+  - type: azure.application_gateway
+    name: Application Gateway
+    provider: azure
+    service: network
+    category: network
+    cli_describe: "az network application-gateway show --ids {id}"
+    terraform_type: azurerm_application_gateway
+
+  # ── Security & Identity ──
+  - type: azure.key_vault
+    name: Key Vault
+    provider: azure
+    service: keyvault
+    category: security
+    cli_describe: "az keyvault show --ids {id}"
+    terraform_type: azurerm_key_vault
+  - type: azure.managed_identity
+    name: Managed Identity
+    provider: azure
+    service: msi
+    category: identity
+    cli_describe: "az identity show --ids {id}"
+    terraform_type: azurerm_user_assigned_identity
+  - type: azure.role_assignment
+    name: Role Assignment
+    provider: azure
+    service: authorization
+    category: identity
+    terraform_type: azurerm_role_assignment
+
+  # ── Messaging ──
+  - type: azure.service_bus_namespace
+    name: Service Bus Namespace
+    provider: azure
+    service: servicebus
+    category: messaging
+    cli_describe: "az servicebus namespace show --ids {id}"
+    terraform_type: azurerm_servicebus_namespace
+  - type: azure.event_hub_namespace
+    name: Event Hub Namespace
+    provider: azure
+    service: eventhub
+    category: messaging
+    cli_describe: "az eventhubs namespace show --ids {id}"
+    terraform_type: azurerm_eventhub_namespace
+
+  # ── Monitoring ──
+  - type: azure.log_analytics_workspace
+    name: Log Analytics Workspace
+    provider: azure
+    service: operationalinsights
+    category: monitoring
+    cli_describe: "az monitor log-analytics workspace show --ids {id}"
+    terraform_type: azurerm_log_analytics_workspace
+  - type: azure.monitor_diagnostic
+    name: Diagnostic Setting
+    provider: azure
+    service: monitor
+    category: monitoring
+    terraform_type: azurerm_monitor_diagnostic_setting

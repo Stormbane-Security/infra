@@ -1,0 +1,149 @@
+# Container runtimes, orchestrators, registries, and service meshes.
+technologies:
+  # ── Container Runtimes ──
+  - id: docker
+    name: Docker
+    category: container
+    open_source: true
+    vendor: Docker Inc
+    tags: [runtime]
+  - id: podman
+    name: Podman
+    category: container
+    open_source: true
+    vendor: Red Hat
+    tags: [runtime, rootless]
+  - id: containerd
+    name: containerd
+    category: container
+    open_source: true
+    vendor: CNCF
+    tags: [runtime]
+  - id: cri-o
+    name: CRI-O
+    category: container
+    open_source: true
+    vendor: CNCF/Red Hat
+    tags: [runtime, k8s-native]
+
+  # ── Orchestrators ──
+  - id: kubernetes
+    name: Kubernetes
+    category: container
+    open_source: true
+    vendor: CNCF
+    default_ports: [6443, 10250]
+    tags: [orchestrator]
+    aliases: [k8s]
+  - id: k3s
+    name: K3s
+    category: container
+    open_source: true
+    vendor: SUSE/Rancher
+    default_ports: [6443]
+    tags: [orchestrator, lightweight]
+  - id: k0s
+    name: k0s
+    category: container
+    open_source: true
+    vendor: Mirantis
+    default_ports: [6443]
+    tags: [orchestrator, lightweight]
+  - id: microk8s
+    name: MicroK8s
+    category: container
+    open_source: true
+    vendor: Canonical
+    default_ports: [16443]
+    tags: [orchestrator, lightweight]
+  - id: openshift
+    name: OpenShift
+    category: container
+    vendor: Red Hat
+    default_ports: [6443, 8443]
+    tags: [orchestrator]
+    aliases: [ocp]
+  - id: nomad
+    name: HashiCorp Nomad
+    category: container
+    open_source: true
+    vendor: HashiCorp
+    default_ports: [4646, 4647, 4648]
+    docker_image: hashicorp/nomad:latest
+    tags: [orchestrator]
+  - id: docker-swarm
+    name: Docker Swarm
+    category: container
+    open_source: true
+    vendor: Docker Inc
+    default_ports: [2377, 7946]
+    tags: [orchestrator]
+
+  # ── Service Meshes ──
+  - id: istio
+    name: Istio
+    category: container
+    open_source: true
+    vendor: CNCF/Google
+    tags: [service-mesh]
+  - id: linkerd
+    name: Linkerd
+    category: container
+    open_source: true
+    vendor: CNCF/Buoyant
+    tags: [service-mesh]
+  - id: consul
+    name: HashiCorp Consul
+    category: container
+    open_source: true
+    vendor: HashiCorp
+    default_ports: [8500, 8501, 8600]
+    docker_image: hashicorp/consul:latest
+    tags: [service-mesh, service-discovery]
+  - id: cilium
+    name: Cilium
+    category: container
+    open_source: true
+    vendor: CNCF/Isovalent
+    tags: [service-mesh, ebpf, cni]
+
+  # ── Container Registries ──
+  - id: dockerhub
+    name: Docker Hub
+    category: container
+    vendor: Docker Inc
+    tags: [registry]
+    aliases: [docker-registry]
+  - id: ghcr
+    name: GitHub Container Registry
+    category: container
+    vendor: GitHub/Microsoft
+    tags: [registry]
+  - id: harbor
+    name: Harbor
+    category: container
+    open_source: true
+    vendor: CNCF/VMware
+    default_ports: [80, 443]
+    tags: [registry]
+  - id: quay
+    name: Quay
+    category: container
+    open_source: true
+    vendor: Red Hat
+    tags: [registry]
+    aliases: [quay-io]
+
+  # ── Package Management ──
+  - id: helm
+    name: Helm
+    category: container
+    open_source: true
+    vendor: CNCF
+    tags: [package-manager, k8s]
+  - id: kustomize
+    name: Kustomize
+    category: container
+    open_source: true
+    vendor: Kubernetes SIG
+    tags: [config-management, k8s]

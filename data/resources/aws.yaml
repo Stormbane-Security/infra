@@ -1,0 +1,287 @@
+# AWS cloud resource types.
+resources:
+  # ── Compute ──
+  - type: aws.ec2_instance
+    name: EC2 Instance
+    provider: aws
+    service: ec2
+    category: compute
+    cli_describe: "aws ec2 describe-instances --instance-ids {id}"
+    terraform_type: aws_instance
+    arn_pattern: "arn:aws:ec2:{region}:{account}:instance/{id}"
+  - type: aws.ec2_security_group
+    name: EC2 Security Group
+    provider: aws
+    service: ec2
+    category: network
+    cli_describe: "aws ec2 describe-security-groups --group-ids {id}"
+    terraform_type: aws_security_group
+    arn_pattern: "arn:aws:ec2:{region}:{account}:security-group/{id}"
+  - type: aws.ec2_volume
+    name: EBS Volume
+    provider: aws
+    service: ec2
+    category: storage
+    cli_describe: "aws ec2 describe-volumes --volume-ids {id}"
+    terraform_type: aws_ebs_volume
+    arn_pattern: "arn:aws:ec2:{region}:{account}:volume/{id}"
+  - type: aws.ec2_ami
+    name: EC2 AMI
+    provider: aws
+    service: ec2
+    category: compute
+    cli_describe: "aws ec2 describe-images --image-ids {id}"
+    terraform_type: aws_ami
+  - type: aws.lambda_function
+    name: Lambda Function
+    provider: aws
+    service: lambda
+    category: serverless
+    cli_describe: "aws lambda get-function --function-name {id}"
+    terraform_type: aws_lambda_function
+    arn_pattern: "arn:aws:lambda:{region}:{account}:function:{id}"
+
+  # ── Containers ──
+  - type: aws.eks_cluster
+    name: EKS Cluster
+    provider: aws
+    service: eks
+    category: container
+    cli_describe: "aws eks describe-cluster --name {id}"
+    terraform_type: aws_eks_cluster
+    arn_pattern: "arn:aws:eks:{region}:{account}:cluster/{id}"
+  - type: aws.ecs_cluster
+    name: ECS Cluster
+    provider: aws
+    service: ecs
+    category: container
+    cli_describe: "aws ecs describe-clusters --clusters {id}"
+    terraform_type: aws_ecs_cluster
+    arn_pattern: "arn:aws:ecs:{region}:{account}:cluster/{id}"
+  - type: aws.ecs_service
+    name: ECS Service
+    provider: aws
+    service: ecs
+    category: container
+    cli_describe: "aws ecs describe-services --cluster {cluster} --services {id}"
+    terraform_type: aws_ecs_service
+  - type: aws.ecr_repository
+    name: ECR Repository
+    provider: aws
+    service: ecr
+    category: registry
+    cli_describe: "aws ecr describe-repositories --repository-names {id}"
+    terraform_type: aws_ecr_repository
+    arn_pattern: "arn:aws:ecr:{region}:{account}:repository/{id}"
+
+  # ── Storage ──
+  - type: aws.s3_bucket
+    name: S3 Bucket
+    provider: aws
+    service: s3
+    category: storage
+    cli_describe: "aws s3api get-bucket-acl --bucket {id}"
+    terraform_type: aws_s3_bucket
+    arn_pattern: "arn:aws:s3:::{id}"
+
+  # ── Databases ──
+  - type: aws.rds_instance
+    name: RDS Instance
+    provider: aws
+    service: rds
+    category: database
+    cli_describe: "aws rds describe-db-instances --db-instance-identifier {id}"
+    terraform_type: aws_db_instance
+    arn_pattern: "arn:aws:rds:{region}:{account}:db:{id}"
+  - type: aws.rds_cluster
+    name: RDS Aurora Cluster
+    provider: aws
+    service: rds
+    category: database
+    cli_describe: "aws rds describe-db-clusters --db-cluster-identifier {id}"
+    terraform_type: aws_rds_cluster
+    arn_pattern: "arn:aws:rds:{region}:{account}:cluster:{id}"
+  - type: aws.dynamodb_table
+    name: DynamoDB Table
+    provider: aws
+    service: dynamodb
+    category: database
+    cli_describe: "aws dynamodb describe-table --table-name {id}"
+    terraform_type: aws_dynamodb_table
+    arn_pattern: "arn:aws:dynamodb:{region}:{account}:table/{id}"
+  - type: aws.elasticache_cluster
+    name: ElastiCache Cluster
+    provider: aws
+    service: elasticache
+    category: cache
+    cli_describe: "aws elasticache describe-cache-clusters --cache-cluster-id {id}"
+    terraform_type: aws_elasticache_cluster
+    arn_pattern: "arn:aws:elasticache:{region}:{account}:cluster:{id}"
+  - type: aws.redshift_cluster
+    name: Redshift Cluster
+    provider: aws
+    service: redshift
+    category: database
+    cli_describe: "aws redshift describe-clusters --cluster-identifier {id}"
+    terraform_type: aws_redshift_cluster
+    arn_pattern: "arn:aws:redshift:{region}:{account}:cluster:{id}"
+  - type: aws.documentdb_cluster
+    name: DocumentDB Cluster
+    provider: aws
+    service: docdb
+    category: database
+    cli_describe: "aws docdb describe-db-clusters --db-cluster-identifier {id}"
+    terraform_type: aws_docdb_cluster
+    arn_pattern: "arn:aws:rds:{region}:{account}:cluster:{id}"
+  - type: aws.opensearch_domain
+    name: OpenSearch Domain
+    provider: aws
+    service: opensearch
+    category: search
+    cli_describe: "aws opensearch describe-domain --domain-name {id}"
+    terraform_type: aws_opensearch_domain
+    arn_pattern: "arn:aws:es:{region}:{account}:domain/{id}"
+
+  # ── Networking ──
+  - type: aws.vpc
+    name: VPC
+    provider: aws
+    service: ec2
+    category: network
+    cli_describe: "aws ec2 describe-vpcs --vpc-ids {id}"
+    terraform_type: aws_vpc
+    arn_pattern: "arn:aws:ec2:{region}:{account}:vpc/{id}"
+  - type: aws.subnet
+    name: Subnet
+    provider: aws
+    service: ec2
+    category: network
+    cli_describe: "aws ec2 describe-subnets --subnet-ids {id}"
+    terraform_type: aws_subnet
+  - type: aws.alb
+    name: Application Load Balancer
+    provider: aws
+    service: elbv2
+    category: network
+    cli_describe: "aws elbv2 describe-load-balancers --load-balancer-arns {id}"
+    terraform_type: aws_lb
+  - type: aws.cloudfront_distribution
+    name: CloudFront Distribution
+    provider: aws
+    service: cloudfront
+    category: cdn
+    cli_describe: "aws cloudfront get-distribution --id {id}"
+    terraform_type: aws_cloudfront_distribution
+    arn_pattern: "arn:aws:cloudfront::{account}:distribution/{id}"
+  - type: aws.route53_zone
+    name: Route 53 Hosted Zone
+    provider: aws
+    service: route53
+    category: network
+    cli_describe: "aws route53 get-hosted-zone --id {id}"
+    terraform_type: aws_route53_zone
+  - type: aws.api_gateway
+    name: API Gateway REST API
+    provider: aws
+    service: apigateway
+    category: network
+    cli_describe: "aws apigateway get-rest-api --rest-api-id {id}"
+    terraform_type: aws_api_gateway_rest_api
+
+  # ── Security & Identity ──
+  - type: aws.iam_role
+    name: IAM Role
+    provider: aws
+    service: iam
+    category: identity
+    cli_describe: "aws iam get-role --role-name {id}"
+    terraform_type: aws_iam_role
+    arn_pattern: "arn:aws:iam::{account}:role/{id}"
+  - type: aws.iam_user
+    name: IAM User
+    provider: aws
+    service: iam
+    category: identity
+    cli_describe: "aws iam get-user --user-name {id}"
+    terraform_type: aws_iam_user
+    arn_pattern: "arn:aws:iam::{account}:user/{id}"
+  - type: aws.iam_policy
+    name: IAM Policy
+    provider: aws
+    service: iam
+    category: identity
+    cli_describe: "aws iam get-policy --policy-arn {id}"
+    terraform_type: aws_iam_policy
+  - type: aws.kms_key
+    name: KMS Key
+    provider: aws
+    service: kms
+    category: security
+    cli_describe: "aws kms describe-key --key-id {id}"
+    terraform_type: aws_kms_key
+    arn_pattern: "arn:aws:kms:{region}:{account}:key/{id}"
+  - type: aws.secrets_manager_secret
+    name: Secrets Manager Secret
+    provider: aws
+    service: secretsmanager
+    category: security
+    cli_describe: "aws secretsmanager describe-secret --secret-id {id}"
+    terraform_type: aws_secretsmanager_secret
+    arn_pattern: "arn:aws:secretsmanager:{region}:{account}:secret:{id}"
+  - type: aws.cognito_user_pool
+    name: Cognito User Pool
+    provider: aws
+    service: cognito-idp
+    category: identity
+    cli_describe: "aws cognito-idp describe-user-pool --user-pool-id {id}"
+    terraform_type: aws_cognito_user_pool
+    arn_pattern: "arn:aws:cognito-idp:{region}:{account}:userpool/{id}"
+  - type: aws.wafv2_web_acl
+    name: WAFv2 Web ACL
+    provider: aws
+    service: wafv2
+    category: security
+    cli_describe: "aws wafv2 get-web-acl --name {name} --scope {scope} --id {id}"
+    terraform_type: aws_wafv2_web_acl
+
+  # ── Messaging ──
+  - type: aws.sqs_queue
+    name: SQS Queue
+    provider: aws
+    service: sqs
+    category: messaging
+    cli_describe: "aws sqs get-queue-attributes --queue-url {id} --attribute-names All"
+    terraform_type: aws_sqs_queue
+    arn_pattern: "arn:aws:sqs:{region}:{account}:{id}"
+  - type: aws.sns_topic
+    name: SNS Topic
+    provider: aws
+    service: sns
+    category: messaging
+    cli_describe: "aws sns get-topic-attributes --topic-arn {id}"
+    terraform_type: aws_sns_topic
+  - type: aws.kinesis_stream
+    name: Kinesis Stream
+    provider: aws
+    service: kinesis
+    category: messaging
+    cli_describe: "aws kinesis describe-stream --stream-name {id}"
+    terraform_type: aws_kinesis_stream
+    arn_pattern: "arn:aws:kinesis:{region}:{account}:stream/{id}"
+
+  # ── Monitoring ──
+  - type: aws.cloudwatch_log_group
+    name: CloudWatch Log Group
+    provider: aws
+    service: logs
+    category: monitoring
+    cli_describe: "aws logs describe-log-groups --log-group-name-prefix {id}"
+    terraform_type: aws_cloudwatch_log_group
+    arn_pattern: "arn:aws:logs:{region}:{account}:log-group:{id}"
+  - type: aws.cloudtrail_trail
+    name: CloudTrail Trail
+    provider: aws
+    service: cloudtrail
+    category: monitoring
+    cli_describe: "aws cloudtrail get-trail --name {id}"
+    terraform_type: aws_cloudtrail

@@ -1,0 +1,191 @@
+# Security tools: secrets management, WAF, IDS/IPS, SAST/DAST, and identity.
+technologies:
+  # ── Secrets Management ──
+  - id: vault
+    name: HashiCorp Vault
+    category: security
+    open_source: true
+    vendor: HashiCorp
+    default_ports: [8200]
+    docker_image: hashicorp/vault:latest
+    tags: [secrets]
+  - id: aws-secrets-manager
+    name: AWS Secrets Manager
+    category: security
+    cloud_provider: aws
+    vendor: Amazon
+    tags: [secrets]
+  - id: gcp-secret-manager-tool
+    name: GCP Secret Manager
+    category: security
+    cloud_provider: gcp
+    vendor: Google
+    tags: [secrets]
+  - id: azure-key-vault-tool
+    name: Azure Key Vault
+    category: security
+    cloud_provider: azure
+    vendor: Microsoft
+    tags: [secrets]
+  - id: conjur
+    name: CyberArk Conjur
+    category: security
+    open_source: true
+    vendor: CyberArk
+    tags: [secrets]
+  - id: sops
+    name: SOPS
+    category: security
+    open_source: true
+    vendor: Mozilla/CNCF
+    tags: [secrets, encryption]
+
+  # ── WAF / IDS / IPS ──
+  - id: modsecurity
+    name: ModSecurity
+    category: security
+    open_source: true
+    vendor: Trustwave/OWASP
+    tags: [waf]
+  - id: crowdsec
+    name: CrowdSec
+    category: security
+    open_source: true
+    vendor: CrowdSec
+    docker_image: crowdsecurity/crowdsec:latest
+    tags: [ids, waf]
+  - id: fail2ban
+    name: Fail2Ban
+    category: security
+    open_source: true
+    vendor: Fail2Ban
+    tags: [ids]
+  - id: snort
+    name: Snort
+    category: security
+    open_source: true
+    vendor: Cisco/Sourcefire
+    tags: [ids, ips]
+  - id: suricata
+    name: Suricata
+    category: security
+    open_source: true
+    vendor: OISF
+    tags: [ids, ips]
+  - id: ossec
+    name: OSSEC
+    category: security
+    open_source: true
+    vendor: OSSEC Foundation
+    tags: [hids]
+  - id: wazuh
+    name: Wazuh
+    category: security
+    open_source: true
+    vendor: Wazuh
+    default_ports: [1514, 1515, 55000]
+    docker_image: wazuh/wazuh-manager:latest
+    tags: [siem, hids]
+  - id: falco
+    name: Falco
+    category: security
+    open_source: true
+    vendor: CNCF/Sysdig
+    tags: [runtime-security, k8s]
+
+  # ── Identity & Auth Providers ──
+  - id: keycloak
+    name: Keycloak
+    category: auth
+    open_source: true
+    vendor: Red Hat/CNCF
+    default_ports: [8080, 8443]
+    docker_image: quay.io/keycloak/keycloak:latest
+    tags: [oidc, saml]
+  - id: auth0
+    name: Auth0
+    category: auth
+    vendor: Okta
+    tags: [oidc, saml]
+  - id: okta
+    name: Okta
+    category: auth
+    vendor: Okta
+    tags: [oidc, saml, sso]
+  - id: dex
+    name: Dex
+    category: auth
+    open_source: true
+    vendor: CNCF
+    default_ports: [5556]
+    tags: [oidc]
+  - id: zitadel
+    name: Zitadel
+    category: auth
+    open_source: true
+    vendor: Zitadel
+    tags: [oidc, saml]
+
+  # ── Supply Chain & Vulnerability Scanning ──
+  - id: trivy
+    name: Trivy
+    category: security
+    open_source: true
+    vendor: Aqua Security
+    tags: [container-scanning, sbom]
+  - id: grype
+    name: Grype
+    category: security
+    open_source: true
+    vendor: Anchore
+    tags: [container-scanning, sbom]
+  - id: sonarqube
+    name: SonarQube
+    category: security
+    open_source: true
+    vendor: SonarSource
+    default_ports: [9000]
+    docker_image: sonarqube:lts-community
+    tags: [sast]
+  - id: semgrep
+    name: Semgrep
+    category: security
+    open_source: true
+    vendor: Semgrep Inc
+    tags: [sast]
+  - id: snyk
+    name: Snyk
+    category: security
+    vendor: Snyk
+    tags: [sca, sast]
+  - id: dependabot
+    name: Dependabot
+    category: security
+    vendor: GitHub/Microsoft
+    tags: [sca]
+  - id: renovate
+    name: Renovate
+    category: security
+    open_source: true
+    vendor: Mend
+    tags: [sca]
+
+  # ── Certificate Management ──
+  - id: cert-manager
+    name: cert-manager
+    category: security
+    open_source: true
+    vendor: CNCF/Jetstack
+    tags: [tls, k8s]
+  - id: letsencrypt
+    name: Let's Encrypt
+    category: security
+    open_source: true
+    vendor: ISRG
+    tags: [tls, ca]
+  - id: step-ca
+    name: step-ca
+    category: security
+    open_source: true
+    vendor: Smallstep
+    tags: [tls, ca, pki]

@@ -1,0 +1,212 @@
+# GCP cloud resource types.
+resources:
+  # ── Compute ──
+  - type: gcp.compute_instance
+    name: Compute Engine Instance
+    provider: gcp
+    service: compute
+    category: compute
+    cli_describe: "gcloud compute instances describe {id} --zone {zone}"
+    terraform_type: google_compute_instance
+  - type: gcp.compute_firewall
+    name: Firewall Rule
+    provider: gcp
+    service: compute
+    category: network
+    cli_describe: "gcloud compute firewall-rules describe {id}"
+    terraform_type: google_compute_firewall
+  - type: gcp.compute_network
+    name: VPC Network
+    provider: gcp
+    service: compute
+    category: network
+    cli_describe: "gcloud compute networks describe {id}"
+    terraform_type: google_compute_network
+  - type: gcp.compute_subnetwork
+    name: Subnetwork
+    provider: gcp
+    service: compute
+    category: network
+    cli_describe: "gcloud compute networks subnets describe {id} --region {region}"
+    terraform_type: google_compute_subnetwork
+  - type: gcp.cloud_function
+    name: Cloud Function
+    provider: gcp
+    service: cloudfunctions
+    category: serverless
+    cli_describe: "gcloud functions describe {id} --region {region}"
+    terraform_type: google_cloudfunctions2_function
+  - type: gcp.cloud_run_service
+    name: Cloud Run Service
+    provider: gcp
+    service: run
+    category: serverless
+    cli_describe: "gcloud run services describe {id} --region {region}"
+    terraform_type: google_cloud_run_v2_service
+
+  # ── Containers ──
+  - type: gcp.gke_cluster
+    name: GKE Cluster
+    provider: gcp
+    service: container
+    category: container
+    cli_describe: "gcloud container clusters describe {id} --zone {zone}"
+    terraform_type: google_container_cluster
+  - type: gcp.gke_node_pool
+    name: GKE Node Pool
+    provider: gcp
+    service: container
+    category: container
+    cli_describe: "gcloud container node-pools describe {id} --cluster {cluster} --zone {zone}"
+    terraform_type: google_container_node_pool
+  - type: gcp.artifact_registry
+    name: Artifact Registry Repository
+    provider: gcp
+    service: artifactregistry
+    category: registry
+    cli_describe: "gcloud artifacts repositories describe {id} --location {location}"
+    terraform_type: google_artifact_registry_repository
+
+  # ── Storage ──
+  - type: gcp.storage_bucket
+    name: Cloud Storage Bucket
+    provider: gcp
+    service: storage
+    category: storage
+    cli_describe: "gcloud storage buckets describe gs://{id}"
+    terraform_type: google_storage_bucket
+
+  # ── Databases ──
+  - type: gcp.cloudsql_instance
+    name: Cloud SQL Instance
+    provider: gcp
+    service: sqladmin
+    category: database
+    cli_describe: "gcloud sql instances describe {id}"
+    terraform_type: google_sql_database_instance
+  - type: gcp.spanner_instance
+    name: Cloud Spanner Instance
+    provider: gcp
+    service: spanner
+    category: database
+    cli_describe: "gcloud spanner instances describe {id}"
+    terraform_type: google_spanner_instance
+  - type: gcp.bigtable_instance
+    name: Bigtable Instance
+    provider: gcp
+    service: bigtable
+    category: database
+    cli_describe: "gcloud bigtable instances describe {id}"
+    terraform_type: google_bigtable_instance
+  - type: gcp.firestore_database
+    name: Firestore Database
+    provider: gcp
+    service: firestore
+    category: database
+    cli_describe: "gcloud firestore databases describe --database {id}"
+    terraform_type: google_firestore_database
+  - type: gcp.memorystore_instance
+    name: Memorystore (Redis) Instance
+    provider: gcp
+    service: redis
+    category: cache
+    cli_describe: "gcloud redis instances describe {id} --region {region}"
+    terraform_type: google_redis_instance
+  - type: gcp.bigquery_dataset
+    name: BigQuery Dataset
+    provider: gcp
+    service: bigquery
+    category: database
+    cli_describe: "bq show {id}"
+    terraform_type: google_bigquery_dataset
+
+  # ── Networking ──
+  - type: gcp.cloud_dns_zone
+    name: Cloud DNS Managed Zone
+    provider: gcp
+    service: dns
+    category: network
+    cli_describe: "gcloud dns managed-zones describe {id}"
+    terraform_type: google_dns_managed_zone
+  - type: gcp.cloud_armor_policy
+    name: Cloud Armor Security Policy
+    provider: gcp
+    service: compute
+    category: security
+    cli_describe: "gcloud compute security-policies describe {id}"
+    terraform_type: google_compute_security_policy
+  - type: gcp.cloud_cdn
+    name: Cloud CDN Backend Service
+    provider: gcp
+    service: compute
+    category: cdn
+    cli_describe: "gcloud compute backend-services describe {id}"
+    terraform_type: google_compute_backend_service
+  - type: gcp.load_balancer
+    name: HTTP(S) Load Balancer
+    provider: gcp
+    service: compute
+    category: network
+    cli_describe: "gcloud compute url-maps describe {id}"
+    terraform_type: google_compute_url_map
+
+  # ── Security & Identity ──
+  - type: gcp.iam_service_account
+    name: IAM Service Account
+    provider: gcp
+    service: iam
+    category: identity
+    cli_describe: "gcloud iam service-accounts describe {id}"
+    terraform_type: google_service_account
+  - type: gcp.iam_policy_binding
+    name: IAM Policy Binding
+    provider: gcp
+    service: iam
+    category: identity
+    terraform_type: google_project_iam_binding
+  - type: gcp.secret
+    name: Secret Manager Secret
+    provider: gcp
+    service: secretmanager
+    category: security
+    cli_describe: "gcloud secrets describe {id}"
+    terraform_type: google_secret_manager_secret
+  - type: gcp.kms_key
+    name: Cloud KMS Key
+    provider: gcp
+    service: cloudkms
+    category: security
+    cli_describe: "gcloud kms keys describe {id} --keyring {keyring} --location {location}"
+    terraform_type: google_kms_crypto_key
+
+  # ── Messaging ──
+  - type: gcp.pubsub_topic
+    name: Pub/Sub Topic
+    provider: gcp
+    service: pubsub
+    category: messaging
+    cli_describe: "gcloud pubsub topics describe {id}"
+    terraform_type: google_pubsub_topic
+  - type: gcp.pubsub_subscription
+    name: Pub/Sub Subscription
+    provider: gcp
+    service: pubsub
+    category: messaging
+    cli_describe: "gcloud pubsub subscriptions describe {id}"
+    terraform_type: google_pubsub_subscription
+
+  # ── Monitoring ──
+  - type: gcp.log_sink
+    name: Cloud Logging Sink
+    provider: gcp
+    service: logging
+    category: monitoring
+    cli_describe: "gcloud logging sinks describe {id}"
+    terraform_type: google_logging_project_sink
+  - type: gcp.alert_policy
+    name: Cloud Monitoring Alert Policy
+    provider: gcp
+    service: monitoring
+    category: monitoring
+    cli_describe: "gcloud alpha monitoring policies describe {id}"
+    terraform_type: google_monitoring_alert_policy

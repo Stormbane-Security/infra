@@ -1,0 +1,167 @@
+# Application frameworks, runtimes, and CMS platforms.
+technologies:
+  # ── Frontend/Fullstack Frameworks ──
+  - id: next-js
+    name: Next.js
+    category: framework
+    open_source: true
+    vendor: Vercel
+    aliases: [nextjs]
+  - id: nuxt
+    name: Nuxt
+    category: framework
+    open_source: true
+    vendor: Nuxt Labs
+    aliases: [nuxtjs]
+  - id: sveltekit
+    name: SvelteKit
+    category: framework
+    open_source: true
+    vendor: Svelte
+    aliases: [svelte]
+  - id: astro
+    name: Astro
+    category: framework
+    open_source: true
+    vendor: Astro
+
+  # ── Backend Frameworks ──
+  - id: rails
+    name: Ruby on Rails
+    category: framework
+    open_source: true
+    vendor: Rails Core
+    aliases: [ruby-on-rails, ror]
+  - id: django
+    name: Django
+    category: framework
+    open_source: true
+    vendor: Django Software Foundation
+  - id: spring
+    name: Spring Boot
+    category: framework
+    open_source: true
+    vendor: VMware/Pivotal
+    aliases: [spring-boot]
+  - id: laravel
+    name: Laravel
+    category: framework
+    open_source: true
+    vendor: Laravel
+  - id: express
+    name: Express.js
+    category: framework
+    open_source: true
+    vendor: OpenJS Foundation
+    aliases: [expressjs]
+  - id: flask
+    name: Flask
+    category: framework
+    open_source: true
+    vendor: Pallets Projects
+  - id: fastapi
+    name: FastAPI
+    category: framework
+    open_source: true
+    vendor: Tiangolo
+  - id: gin
+    name: Gin
+    category: framework
+    open_source: true
+    vendor: Gin-Gonic
+  - id: fiber
+    name: Fiber
+    category: framework
+    open_source: true
+    vendor: Fiber
+  - id: phoenix
+    name: Phoenix Framework
+    category: framework
+    open_source: true
+    vendor: Phoenix
+  - id: dotnet
+    name: ASP.NET
+    category: framework
+    vendor: Microsoft
+    aliases: [aspnet, asp-net]
+
+  # ── Language Runtimes ──
+  - id: nodejs
+    name: Node.js
+    category: runtime
+    open_source: true
+    vendor: OpenJS Foundation
+    aliases: [node]
+  - id: php
+    name: PHP
+    category: runtime
+    open_source: true
+    vendor: The PHP Group
+  - id: python
+    name: Python
+    category: runtime
+    open_source: true
+    vendor: Python Software Foundation
+  - id: java
+    name: Java
+    category: runtime
+    vendor: Oracle/OpenJDK
+    aliases: [jvm, openjdk]
+  - id: golang
+    name: Go
+    category: runtime
+    open_source: true
+    vendor: Google
+    aliases: [go]
+  - id: ruby
+    name: Ruby
+    category: runtime
+    open_source: true
+    vendor: Ruby Core
+  - id: rust
+    name: Rust
+    category: runtime
+    open_source: true
+    vendor: Rust Foundation
+  - id: elixir
+    name: Elixir
+    category: runtime
+    open_source: true
+    vendor: Elixir
+  - id: dotnet-runtime
+    name: .NET Runtime
+    category: runtime
+    vendor: Microsoft
+    aliases: [dotnet-core]
+
+  # ── CMS ──
+  - id: wordpress
+    name: WordPress
+    category: framework
+    open_source: true
+    vendor: Automattic
+    docker_image: wordpress:latest
+    default_ports: [80]
+    aliases: [wp]
+    tags: [cms]
+  - id: ghost
+    name: Ghost CMS
+    category: framework
+    open_source: true
+    vendor: Ghost Foundation
+    docker_image: ghost:latest
+    tags: [cms]
+  - id: drupal
+    name: Drupal
+    category: framework
+    open_source: true
+    vendor: Drupal Association
+    docker_image: drupal:latest
+    tags: [cms]
+  - id: joomla
+    name: Joomla
+    category: framework
+    open_source: true
+    vendor: Open Source Matters
+    docker_image: joomla:latest
+    tags: [cms]

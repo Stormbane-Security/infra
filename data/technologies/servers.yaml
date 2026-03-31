@@ -1,0 +1,145 @@
+# Web servers, reverse proxies, load balancers, and API gateways.
+technologies:
+  # ── Web Servers ──
+  - id: nginx
+    name: NGINX
+    category: server
+    layer: reverse_proxy
+    open_source: true
+    vendor: F5/NGINX
+    default_ports: [80, 443]
+    docker_image: nginx:alpine
+  - id: apache
+    name: Apache HTTP Server
+    category: server
+    layer: origin
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [80, 443]
+    docker_image: httpd:alpine
+    aliases: [httpd, apache2]
+  - id: caddy
+    name: Caddy
+    category: server
+    layer: reverse_proxy
+    open_source: true
+    vendor: Caddy
+    default_ports: [80, 443]
+    docker_image: caddy:alpine
+  - id: litespeed
+    name: LiteSpeed
+    category: server
+    layer: origin
+    vendor: LiteSpeed Technologies
+    default_ports: [80, 443]
+  - id: iis
+    name: Microsoft IIS
+    category: server
+    layer: origin
+    vendor: Microsoft
+    default_ports: [80, 443]
+
+  # ── Reverse Proxies & Load Balancers ──
+  - id: traefik
+    name: Traefik
+    category: server
+    layer: reverse_proxy
+    open_source: true
+    vendor: Traefik Labs
+    default_ports: [80, 443, 8080]
+    docker_image: traefik:v3.0
+  - id: envoy
+    name: Envoy Proxy
+    category: server
+    layer: service_mesh
+    open_source: true
+    vendor: CNCF/Lyft
+    default_ports: [80, 443, 9901]
+    docker_image: envoyproxy/envoy:v1.31-latest
+  - id: haproxy
+    name: HAProxy
+    category: server
+    layer: load_balancer
+    open_source: true
+    vendor: HAProxy Technologies
+    default_ports: [80, 443]
+    docker_image: haproxy:alpine
+  - id: varnish
+    name: Varnish Cache
+    category: server
+    layer: cdn_edge
+    open_source: true
+    vendor: Varnish Software
+    default_ports: [80, 6081]
+    docker_image: varnish:stable
+  - id: f5
+    name: F5 BIG-IP
+    category: server
+    layer: load_balancer
+    vendor: F5 Networks
+    default_ports: [443, 8443]
+  - id: citrix-netscaler
+    name: Citrix NetScaler
+    category: server
+    layer: load_balancer
+    vendor: Citrix
+    default_ports: [443, 9443]
+    aliases: [netscaler]
+
+  # ── API Gateways ──
+  - id: kong
+    name: Kong Gateway
+    category: gateway
+    layer: api_gateway
+    open_source: true
+    vendor: Kong Inc
+    default_ports: [8000, 8443, 8001]
+    docker_image: kong:latest
+  - id: tyk
+    name: Tyk Gateway
+    category: gateway
+    layer: api_gateway
+    open_source: true
+    vendor: Tyk Technologies
+    default_ports: [8080]
+    docker_image: tykio/tyk-gateway:latest
+  - id: apigee
+    name: Apigee
+    category: gateway
+    layer: api_gateway
+    cloud_provider: gcp
+    vendor: Google
+  - id: azure-apim
+    name: Azure API Management
+    category: gateway
+    layer: api_gateway
+    cloud_provider: azure
+    vendor: Microsoft
+
+  # ── CDN Providers ──
+  - id: akamai
+    name: Akamai
+    category: cdn
+    layer: cdn_edge
+    vendor: Akamai Technologies
+  - id: fastly
+    name: Fastly
+    category: cdn
+    layer: cdn_edge
+    vendor: Fastly
+  - id: keycdn
+    name: KeyCDN
+    category: cdn
+    layer: cdn_edge
+    vendor: proinity
+  - id: bunnycdn
+    name: BunnyCDN
+    category: cdn
+    layer: cdn_edge
+    vendor: BunnyCDN
+  - id: sucuri
+    name: Sucuri
+    category: cdn
+    layer: cdn_edge
+    vendor: Sucuri/GoDaddy
+    tags: [waf]
