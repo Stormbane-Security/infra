@@ -89,6 +89,39 @@ type TechMeta struct {
 
 	// Tags are free-form labels for filtering (e.g., "managed", "serverless", "oss").
 	Tags []string `yaml:"tags,omitempty"`
+
+	// Fingerprints are detection rules for identifying this technology
+	// from external signals (HTTP headers, response bodies, paths, DNS CNAMEs, etc.).
+	// Used by Beacon's fingerprint engine.
+	Fingerprints []Fingerprint `yaml:"fingerprints,omitempty"`
+}
+
+// Fingerprint is a single detection rule that maps an observable signal
+// to a technology identification. When the signal matches during a scan,
+// the technology's ID is assigned to the specified evidence field.
+type Fingerprint struct {
+	// Signal is the type of observable: "header", "server", "body", "path",
+	// "cookie", "cname", "title", "dns_suffix", "asn_org".
+	Signal string `yaml:"signal"`
+
+	// Key is the header name (only used when Signal is "header").
+	Key string `yaml:"key,omitempty"`
+
+	// Match is the case-insensitive substring to look for in the signal value.
+	// Empty means presence-only matching (e.g., header exists regardless of value).
+	Match string `yaml:"match,omitempty"`
+
+	// Field is the evidence field to set when this rule fires:
+	// "proxy_type", "cloud_provider", "framework", "auth_system",
+	// "backend_services", "infra_layer".
+	Field string `yaml:"field"`
+
+	// Value overrides the technology ID as the value assigned to Field.
+	// When empty, the enclosing technology's ID is used.
+	Value string `yaml:"value,omitempty"`
+
+	// Confidence is how certain we are that this signal identifies the technology (0.0–1.0).
+	Confidence float64 `yaml:"confidence"`
 }
 
 // Registry is the global technology catalog. All technologies known to the
@@ -175,6 +208,48 @@ func ByCloud(provider Technology) []*TechMeta {
 		}
 	}
 	return result
+}
+
+// FlatFingerprint is a fully resolved fingerprint rule with the technology ID baked in.
+// This is the format Beacon's fingerprint engine consumes directly.
+type FlatFingerprint struct {
+	TechID     Technology
+	Signal     string
+	Key        string
+	Match      string
+	Field      string
+	Value      string
+	Confidence float64
+}
+
+// AllFingerprints returns every fingerprint rule across all registered technologies
+// as a flat list ready for Beacon's rule engine. Value defaults to the technology ID
+// unless overridden in the rule.
+func AllFingerprints() []FlatFingerprint {
+	seen := map[Technology]bool{}
+	var out []FlatFingerprint
+	for _, m := range Registry {
+		if seen[m.ID] {
+			continue
+		}
+		seen[m.ID] = true
+		for _, fp := range m.Fingerprints {
+			val := fp.Value
+			if val == "" {
+				val = string(m.ID)
+			}
+			out = append(out, FlatFingerprint{
+				TechID:     m.ID,
+				Signal:     fp.Signal,
+				Key:        fp.Key,
+				Match:      fp.Match,
+				Field:      fp.Field,
+				Value:      val,
+				Confidence: fp.Confidence,
+			})
+		}
+	}
+	return out
 }
 
 // Well-known technology constants for use in Go code.

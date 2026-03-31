@@ -17,6 +17,11 @@ technologies:
     default_ports: [3000]
     docker_image: grafana/grafana:latest
     tags: [dashboards]
+    fingerprints:
+      - signal: path
+        match: "/api/health"
+        field: backend_services
+        confidence: 0.5
   - id: datadog
     name: Datadog
     category: monitoring
@@ -41,6 +46,15 @@ technologies:
     default_ports: [8428]
     docker_image: victoriametrics/victoria-metrics:latest
     tags: [metrics, tsdb]
+    fingerprints:
+      - signal: path
+        match: "/vmui"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: victoriametrics
+        field: backend_services
+        confidence: 1.0
   - id: thanos
     name: Thanos
     category: monitoring
@@ -60,6 +74,19 @@ technologies:
     vendor: Nagios Enterprises
     default_ports: [5666]
     tags: [infra-monitoring]
+    fingerprints:
+      - signal: path
+        match: "/nagios/"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "nagios core"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "nagios xi"
+        field: backend_services
+        confidence: 1.0
   - id: zabbix
     name: Zabbix
     category: monitoring
@@ -78,6 +105,27 @@ technologies:
     default_ports: [16686, 14268]
     docker_image: jaegertracing/all-in-one:latest
     tags: [tracing]
+    fingerprints:
+      - signal: path
+        match: "/api/traces"
+        field: backend_services
+        confidence: 0.5
+      - signal: path
+        match: "/api/services"
+        field: backend_services
+        confidence: 0.85
+      - signal: body
+        match: "jaeger ui"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "jaeger-ui"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "\"traceID\""
+        field: backend_services
+        confidence: 0.85
   - id: zipkin
     name: Zipkin
     category: monitoring
@@ -86,6 +134,15 @@ technologies:
     default_ports: [9411]
     docker_image: openzipkin/zipkin:latest
     tags: [tracing]
+    fingerprints:
+      - signal: path
+        match: "/api/v2/traces"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: zipkin
+        field: backend_services
+        confidence: 0.8
   - id: opentelemetry
     name: OpenTelemetry
     category: monitoring
@@ -99,6 +156,15 @@ technologies:
     open_source: true
     vendor: Sentry
     tags: [errors, apm]
+    fingerprints:
+      - signal: path
+        match: "/api/0/internal/health"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: sentry_dsn
+        field: backend_services
+        confidence: 0.9
 
   # ── Logging ──
   - id: loki
@@ -109,6 +175,15 @@ technologies:
     default_ports: [3100]
     docker_image: grafana/loki:latest
     tags: [logs]
+    fingerprints:
+      - signal: path
+        match: "/loki/api/v1/labels"
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/loki/api/v1/query"
+        field: backend_services
+        confidence: 1.0
   - id: elk
     name: ELK Stack
     category: monitoring
@@ -163,3 +238,16 @@ technologies:
     open_source: true
     vendor: Grafana Labs
     tags: [tracing]
+    fingerprints:
+      - signal: path
+        match: "/tempo/api/traces"
+        field: backend_services
+        confidence: 1.0
+      - signal: header
+        key: x-tempo-snapshot
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: rootServiceName
+        field: backend_services
+        confidence: 0.9

@@ -1,4 +1,4 @@
-# Application frameworks, runtimes, and CMS platforms.
+# Application frameworks, runtimes, CMS platforms, and backend services.
 technologies:
   # ── Frontend/Fullstack Frameworks ──
   - id: next-js
@@ -7,23 +7,50 @@ technologies:
     open_source: true
     vendor: Vercel
     aliases: [nextjs]
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: "next.js"
+        field: framework
+        value: nextjs
+        confidence: 1.0
+      - signal: body
+        match: "__next_data__"
+        field: framework
+        value: nextjs
+        confidence: 1.0
   - id: nuxt
     name: Nuxt
     category: framework
     open_source: true
     vendor: Nuxt Labs
     aliases: [nuxtjs]
+    fingerprints:
+      - signal: body
+        match: "__nuxt__"
+        field: framework
+        confidence: 1.0
   - id: sveltekit
     name: SvelteKit
     category: framework
     open_source: true
     vendor: Svelte
     aliases: [svelte]
+    fingerprints:
+      - signal: body
+        match: "__sveltekit"
+        field: framework
+        confidence: 1.0
   - id: astro
     name: Astro
     category: framework
     open_source: true
     vendor: Astro
+    fingerprints:
+      - signal: body
+        match: "data-astro-"
+        field: framework
+        confidence: 1.0
 
   # ── Backend Frameworks ──
   - id: rails
@@ -37,53 +64,160 @@ technologies:
     category: framework
     open_source: true
     vendor: Django Software Foundation
+    fingerprints:
+      - signal: cookie
+        match: django
+        field: framework
+        confidence: 0.85
+      - signal: header
+        key: server
+        match: daphne
+        field: framework
+        confidence: 0.9
   - id: spring
     name: Spring Boot
     category: framework
     open_source: true
     vendor: VMware/Pivotal
     aliases: [spring-boot]
+    fingerprints:
+      - signal: body
+        match: "whitelabel error page"
+        field: framework
+        value: spring-boot
+        confidence: 0.95
+      - signal: body
+        match: "x-application-context"
+        field: framework
+        value: spring-boot
+        confidence: 0.9
+      - signal: path
+        match: "/actuator"
+        field: backend_services
+        value: spring-boot
+        confidence: 0.95
   - id: laravel
     name: Laravel
     category: framework
     open_source: true
     vendor: Laravel
+    fingerprints:
+      - signal: cookie
+        match: laravel_session
+        field: framework
+        confidence: 1.0
   - id: express
     name: Express.js
     category: framework
     open_source: true
     vendor: OpenJS Foundation
     aliases: [expressjs]
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: express
+        field: framework
+        confidence: 1.0
   - id: flask
     name: Flask
     category: framework
     open_source: true
     vendor: Pallets Projects
+    fingerprints:
+      - signal: header
+        key: server
+        match: werkzeug
+        field: framework
+        confidence: 1.0
   - id: fastapi
     name: FastAPI
     category: framework
     open_source: true
     vendor: Tiangolo
+    fingerprints:
+      - signal: header
+        key: server
+        match: uvicorn
+        field: framework
+        confidence: 0.9
+      - signal: header
+        key: server
+        match: hypercorn
+        field: framework
+        confidence: 0.85
+      - signal: path
+        match: "/docs"
+        field: framework
+        confidence: 0.4
+      - signal: path
+        match: "/redoc"
+        field: framework
+        confidence: 0.5
   - id: gin
     name: Gin
     category: framework
     open_source: true
     vendor: Gin-Gonic
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: gin
+        field: framework
+        confidence: 1.0
   - id: fiber
     name: Fiber
     category: framework
     open_source: true
     vendor: Fiber
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: fiber
+        field: framework
+        confidence: 1.0
+  - id: echo
+    name: Echo
+    category: framework
+    open_source: true
+    vendor: LabStack
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: echo
+        field: framework
+        confidence: 1.0
   - id: phoenix
     name: Phoenix Framework
     category: framework
     open_source: true
     vendor: Phoenix
+    fingerprints:
+      - signal: header
+        key: server
+        match: cowboy
+        field: framework
+        confidence: 0.85
+      - signal: cookie
+        match: _phoenix_flash
+        field: framework
+        confidence: 1.0
   - id: dotnet
     name: ASP.NET
     category: framework
     vendor: Microsoft
     aliases: [aspnet, asp-net]
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: "asp.net"
+        field: framework
+        value: aspnet
+        confidence: 1.0
+      - signal: cookie
+        match: "asp.net_sessionid"
+        field: framework
+        value: aspnet
+        confidence: 1.0
 
   # ── Language Runtimes ──
   - id: nodejs
@@ -97,16 +231,37 @@ technologies:
     category: runtime
     open_source: true
     vendor: The PHP Group
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: php
+        field: framework
+        confidence: 0.9
+      - signal: cookie
+        match: phpsessid
+        field: framework
+        confidence: 0.9
   - id: python
     name: Python
     category: runtime
     open_source: true
     vendor: Python Software Foundation
+    fingerprints:
+      - signal: header
+        key: server
+        match: gunicorn
+        field: framework
+        confidence: 0.85
   - id: java
     name: Java
     category: runtime
     vendor: Oracle/OpenJDK
     aliases: [jvm, openjdk]
+    fingerprints:
+      - signal: cookie
+        match: jsessionid
+        field: framework
+        confidence: 0.9
   - id: golang
     name: Go
     category: runtime
@@ -165,3 +320,91 @@ technologies:
     vendor: Open Source Matters
     docker_image: joomla:latest
     tags: [cms]
+  - id: strapi
+    name: Strapi
+    category: framework
+    open_source: true
+    vendor: Strapi
+    docker_image: strapi/strapi:latest
+    default_ports: [1337]
+    tags: [cms, headless]
+    fingerprints:
+      - signal: header
+        key: x-powered-by
+        match: strapi
+        field: backend_services
+        confidence: 1.0
+
+  # ── Backend Services ──
+  - id: jupyter
+    name: Jupyter
+    category: framework
+    open_source: true
+    vendor: Project Jupyter
+    default_ports: [8888]
+    docker_image: jupyter/base-notebook:latest
+    tags: [data-science]
+    fingerprints:
+      - signal: path
+        match: "/api/kernels"
+        field: backend_services
+        confidence: 1.0
+  - id: airflow
+    name: Apache Airflow
+    category: framework
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [8080]
+    docker_image: apache/airflow:latest
+    tags: [orchestration, data-pipeline]
+    fingerprints:
+      - signal: path
+        match: "/api/v1/dags"
+        field: backend_services
+        confidence: 1.0
+  - id: hasura
+    name: Hasura
+    category: framework
+    open_source: true
+    vendor: Hasura
+    default_ports: [8080]
+    docker_image: hasura/graphql-engine:latest
+    tags: [graphql]
+    fingerprints:
+      - signal: path
+        match: "/v1/graphql"
+        field: backend_services
+        confidence: 0.9
+  - id: mattermost
+    name: Mattermost
+    category: framework
+    open_source: true
+    vendor: Mattermost
+    default_ports: [8065]
+    docker_image: mattermost/mattermost-team-edition:latest
+    tags: [messaging]
+    fingerprints:
+      - signal: header
+        key: x-version-id
+        field: backend_services
+        confidence: 0.4
+      - signal: body
+        match: mattermost
+        field: backend_services
+        confidence: 0.85
+  - id: grpc
+    name: gRPC
+    category: framework
+    open_source: true
+    vendor: CNCF/Google
+    tags: [rpc]
+    fingerprints:
+      - signal: body
+        match: "\"grpc_server_reflection_version\""
+        field: backend_services
+        confidence: 0.95
+      - signal: header
+        key: content-type
+        match: "application/grpc"
+        field: backend_services
+        confidence: 1.0

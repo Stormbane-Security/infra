@@ -1,4 +1,4 @@
-# Web servers, reverse proxies, load balancers, and API gateways.
+# Web servers, reverse proxies, load balancers, API gateways, and network appliances.
 technologies:
   # ── Web Servers ──
   - id: nginx
@@ -9,6 +9,11 @@ technologies:
     vendor: F5/NGINX
     default_ports: [80, 443]
     docker_image: nginx:alpine
+    fingerprints:
+      - signal: server
+        match: nginx
+        field: proxy_type
+        confidence: 0.9
   - id: apache
     name: Apache HTTP Server
     category: server
@@ -18,6 +23,11 @@ technologies:
     default_ports: [80, 443]
     docker_image: httpd:alpine
     aliases: [httpd, apache2]
+    fingerprints:
+      - signal: server
+        match: apache
+        field: proxy_type
+        confidence: 0.9
   - id: caddy
     name: Caddy
     category: server
@@ -26,18 +36,33 @@ technologies:
     vendor: Caddy
     default_ports: [80, 443]
     docker_image: caddy:alpine
+    fingerprints:
+      - signal: server
+        match: caddy
+        field: proxy_type
+        confidence: 1.0
   - id: litespeed
     name: LiteSpeed
     category: server
     layer: origin
     vendor: LiteSpeed Technologies
     default_ports: [80, 443]
+    fingerprints:
+      - signal: server
+        match: litespeed
+        field: proxy_type
+        confidence: 1.0
   - id: iis
     name: Microsoft IIS
     category: server
     layer: origin
     vendor: Microsoft
     default_ports: [80, 443]
+    fingerprints:
+      - signal: server
+        match: iis
+        field: proxy_type
+        confidence: 1.0
 
   # ── Reverse Proxies & Load Balancers ──
   - id: traefik
@@ -48,6 +73,11 @@ technologies:
     vendor: Traefik Labs
     default_ports: [80, 443, 8080]
     docker_image: traefik:v3.0
+    fingerprints:
+      - signal: server
+        match: traefik
+        field: proxy_type
+        confidence: 1.0
   - id: envoy
     name: Envoy Proxy
     category: server
@@ -56,6 +86,11 @@ technologies:
     vendor: CNCF/Lyft
     default_ports: [80, 443, 9901]
     docker_image: envoyproxy/envoy:v1.31-latest
+    fingerprints:
+      - signal: header
+        key: x-envoy-upstream-service-time
+        field: proxy_type
+        confidence: 1.0
   - id: haproxy
     name: HAProxy
     category: server
@@ -95,6 +130,11 @@ technologies:
     vendor: Kong Inc
     default_ports: [8000, 8443, 8001]
     docker_image: kong:latest
+    fingerprints:
+      - signal: header
+        key: x-kong-request-id
+        field: proxy_type
+        confidence: 1.0
   - id: tyk
     name: Tyk Gateway
     category: gateway
@@ -103,18 +143,34 @@ technologies:
     vendor: Tyk Technologies
     default_ports: [8080]
     docker_image: tykio/tyk-gateway:latest
+    fingerprints:
+      - signal: header
+        key: x-tyk-api-expires
+        field: proxy_type
+        confidence: 1.0
   - id: apigee
     name: Apigee
     category: gateway
     layer: api_gateway
     cloud_provider: gcp
     vendor: Google
+    fingerprints:
+      - signal: header
+        key: x-apigee-fault-code
+        field: proxy_type
+        confidence: 1.0
   - id: azure-apim
     name: Azure API Management
     category: gateway
     layer: api_gateway
     cloud_provider: azure
     vendor: Microsoft
+    fingerprints:
+      - signal: header
+        key: apim-request-id
+        field: proxy_type
+        value: azure_apim
+        confidence: 1.0
 
   # ── CDN Providers ──
   - id: akamai
@@ -122,11 +178,21 @@ technologies:
     category: cdn
     layer: cdn_edge
     vendor: Akamai Technologies
+    fingerprints:
+      - signal: cname
+        match: ".akamaiedge.net"
+        field: proxy_type
+        confidence: 1.0
   - id: fastly
     name: Fastly
     category: cdn
     layer: cdn_edge
     vendor: Fastly
+    fingerprints:
+      - signal: cname
+        match: ".fastly.net"
+        field: proxy_type
+        confidence: 1.0
   - id: keycdn
     name: KeyCDN
     category: cdn
@@ -143,3 +209,70 @@ technologies:
     layer: cdn_edge
     vendor: Sucuri/GoDaddy
     tags: [waf]
+
+  # ── Network Appliances ──
+  - id: unifi
+    name: UniFi Network
+    category: server
+    vendor: Ubiquiti
+    default_ports: [8443, 8080]
+    tags: [network-controller]
+    fingerprints:
+      - signal: body
+        match: "unifi network"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "network.unifi"
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/manage/account/login"
+        field: backend_services
+        confidence: 0.95
+  - id: omada
+    name: TP-Link Omada
+    category: server
+    vendor: TP-Link
+    default_ports: [8043, 8088]
+    tags: [network-controller]
+    fingerprints:
+      - signal: body
+        match: "omada controller"
+        field: backend_services
+        confidence: 1.0
+  - id: aruba
+    name: Aruba Networks
+    category: server
+    vendor: HPE/Aruba
+    tags: [network-controller]
+    fingerprints:
+      - signal: body
+        match: "aruba networks"
+        field: backend_services
+        confidence: 0.9
+  - id: aruba-instant
+    name: Aruba Instant
+    category: server
+    vendor: HPE/Aruba
+    tags: [wireless-ap]
+    fingerprints:
+      - signal: body
+        match: "aruba instant"
+        field: backend_services
+        confidence: 1.0
+  - id: openwrt
+    name: OpenWrt
+    category: server
+    open_source: true
+    vendor: OpenWrt Project
+    tags: [router]
+    fingerprints:
+      - signal: body
+        match: "openwrt"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "luci"
+        field: backend_services
+        confidence: 0.9

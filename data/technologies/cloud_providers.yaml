@@ -4,45 +4,162 @@ technologies:
     name: Amazon Web Services
     category: cloud
     vendor: Amazon
+    fingerprints:
+      - signal: header
+        key: x-amz-cf-id
+        field: cloud_provider
+        confidence: 1.0
+      - signal: header
+        key: x-amzn-requestid
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".cloudfront.net"
+        field: cloud_provider
+        confidence: 1.0
   - id: gcp
     name: Google Cloud Platform
     category: cloud
     vendor: Google
+    fingerprints:
+      - signal: header
+        key: x-goog-request-id
+        field: cloud_provider
+        confidence: 1.0
   - id: azure
     name: Microsoft Azure
     category: cloud
     vendor: Microsoft
+    fingerprints:
+      - signal: header
+        key: x-azure-ref
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".azurefd.net"
+        field: cloud_provider
+        confidence: 1.0
   - id: cloudflare
     name: Cloudflare
     category: cloud
     vendor: Cloudflare
+    fingerprints:
+      - signal: header
+        key: cf-ray
+        field: proxy_type
+        confidence: 1.0
+      - signal: header
+        key: cf-ray
+        field: cloud_provider
+        confidence: 1.0
   - id: vercel
     name: Vercel
     category: cloud
     vendor: Vercel
+    fingerprints:
+      - signal: header
+        key: x-vercel-id
+        field: proxy_type
+        confidence: 1.0
+      - signal: header
+        key: x-vercel-id
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".vercel.app"
+        field: cloud_provider
+        confidence: 1.0
   - id: netlify
     name: Netlify
     category: cloud
     vendor: Netlify
+    fingerprints:
+      - signal: header
+        key: x-nf-request-id
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".netlify.app"
+        field: cloud_provider
+        confidence: 1.0
   - id: heroku
     name: Heroku
     category: cloud
     vendor: Salesforce
     aliases: [herokuish]
+    fingerprints:
+      - signal: cname
+        match: ".heroku.com"
+        field: cloud_provider
+        confidence: 1.0
   - id: digitalocean
     name: DigitalOcean
     category: cloud
     vendor: DigitalOcean
     aliases: [do]
+    fingerprints:
+      - signal: cname
+        match: ".digitaloceanspaces.com"
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".ondigitalocean.app"
+        field: cloud_provider
+        confidence: 1.0
+      - signal: header
+        key: x-do-app-origin
+        field: cloud_provider
+        confidence: 1.0
+      - signal: header
+        key: x-do-orig-status
+        field: cloud_provider
+        confidence: 1.0
+  - id: hetzner
+    name: Hetzner Cloud
+    category: cloud
+    vendor: Hetzner
+    fingerprints:
+      - signal: cname
+        match: ".hetzner.cloud"
+        field: cloud_provider
+        confidence: 1.0
+  - id: linode
+    name: Linode
+    category: cloud
+    vendor: Akamai/Linode
+    fingerprints:
+      - signal: cname
+        match: ".linodeobjects.com"
+        field: cloud_provider
+        confidence: 1.0
   - id: fly
     name: Fly.io
     category: cloud
     vendor: Fly.io
+    fingerprints:
+      - signal: header
+        key: fly-request-id
+        field: cloud_provider
+        confidence: 1.0
+      - signal: cname
+        match: ".fly.dev"
+        field: cloud_provider
+        confidence: 1.0
   - id: railway
     name: Railway
     category: cloud
     vendor: Railway
+    fingerprints:
+      - signal: cname
+        match: ".railway.app"
+        field: cloud_provider
+        confidence: 1.0
   - id: render
     name: Render
     category: cloud
     vendor: Render
+    fingerprints:
+      - signal: cname
+        match: ".onrender.com"
+        field: cloud_provider
+        confidence: 1.0

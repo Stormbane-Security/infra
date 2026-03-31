@@ -9,6 +9,11 @@ technologies:
     default_ports: [8200]
     docker_image: hashicorp/vault:latest
     tags: [secrets]
+    fingerprints:
+      - signal: path
+        match: "/v1/sys/health"
+        field: backend_services
+        confidence: 1.0
   - id: aws-secrets-manager
     name: AWS Secrets Manager
     category: security
@@ -102,16 +107,31 @@ technologies:
     default_ports: [8080, 8443]
     docker_image: quay.io/keycloak/keycloak:latest
     tags: [oidc, saml]
+    fingerprints:
+      - signal: path
+        match: "/auth/realms"
+        field: auth_system
+        confidence: 1.0
   - id: auth0
     name: Auth0
     category: auth
     vendor: Okta
     tags: [oidc, saml]
+    fingerprints:
+      - signal: body
+        match: "auth0.com"
+        field: auth_system
+        confidence: 0.95
   - id: okta
     name: Okta
     category: auth
     vendor: Okta
     tags: [oidc, saml, sso]
+    fingerprints:
+      - signal: body
+        match: "okta.com"
+        field: auth_system
+        confidence: 0.9
   - id: dex
     name: Dex
     category: auth
@@ -147,6 +167,15 @@ technologies:
     default_ports: [9000]
     docker_image: sonarqube:lts-community
     tags: [sast]
+    fingerprints:
+      - signal: path
+        match: "/api/system/status"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: sonarqube
+        field: backend_services
+        confidence: 0.9
   - id: semgrep
     name: Semgrep
     category: security

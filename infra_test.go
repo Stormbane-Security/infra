@@ -99,3 +99,36 @@ func TestByCloud(t *testing.T) {
 		t.Errorf("ByCloud(aws) returned %d entries, expected at least 10", len(aws))
 	}
 }
+
+func TestAllFingerprints(t *testing.T) {
+	fps := AllFingerprints()
+	if len(fps) < 80 {
+		t.Errorf("AllFingerprints() returned %d rules, expected at least 80", len(fps))
+	}
+	t.Logf("Fingerprint rules: %d", len(fps))
+
+	// Verify a well-known fingerprint.
+	found := false
+	for _, fp := range fps {
+		if fp.Signal == "header" && fp.Key == "cf-ray" && fp.Field == "cloud_provider" {
+			if fp.Value != "cloudflare" {
+				t.Errorf("cf-ray fingerprint value = %q, want cloudflare", fp.Value)
+			}
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Error("missing cf-ray → cloudflare fingerprint")
+	}
+
+	// Verify value override works (aws-api-gateway → aws_api_gateway).
+	for _, fp := range fps {
+		if fp.TechID == "aws-api-gateway" && fp.Field == "proxy_type" {
+			if fp.Value != "aws_api_gateway" {
+				t.Errorf("aws-api-gateway fingerprint value = %q, want aws_api_gateway", fp.Value)
+			}
+			break
+		}
+	}
+}

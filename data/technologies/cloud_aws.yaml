@@ -86,6 +86,12 @@ technologies:
     category: gateway
     cloud_provider: aws
     vendor: Amazon
+    fingerprints:
+      - signal: header
+        key: x-amz-apigw-id
+        field: proxy_type
+        value: aws_api_gateway
+        confidence: 1.0
   - id: aws-route53
     name: Amazon Route 53
     category: cloud
@@ -96,6 +102,12 @@ technologies:
     category: auth
     cloud_provider: aws
     vendor: Amazon
+    fingerprints:
+      - signal: body
+        match: cognito
+        field: auth_system
+        value: cognito
+        confidence: 0.85
   - id: aws-waf
     name: AWS WAF
     category: security

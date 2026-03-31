@@ -145,6 +145,19 @@ technologies:
     default_ports: [4001, 5001, 8080]
     docker_image: ipfs/kubo:latest
     tags: [storage, p2p]
+    fingerprints:
+      - signal: header
+        key: x-ipfs-path
+        field: backend_services
+        confidence: 1.0
+      - signal: header
+        key: x-ipfs-gateway
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/api/v0/id"
+        field: backend_services
+        confidence: 1.0
   - id: filecoin
     name: Filecoin
     category: web3

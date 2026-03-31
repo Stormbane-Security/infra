@@ -1,4 +1,4 @@
-# CI/CD platforms, build systems, and GitOps tools.
+# CI/CD platforms, build systems, GitOps tools, and artifact repositories.
 technologies:
   # ── CI/CD Platforms ──
   - id: github-actions
@@ -6,6 +6,19 @@ technologies:
     category: cicd
     vendor: GitHub/Microsoft
     tags: [ci, cd]
+  - id: gitlab
+    name: GitLab
+    category: cicd
+    open_source: true
+    vendor: GitLab
+    default_ports: [80, 443]
+    docker_image: gitlab/gitlab-ce:latest
+    tags: [git, ci, cd]
+    fingerprints:
+      - signal: path
+        match: "/api/v4/runners"
+        field: backend_services
+        confidence: 0.9
   - id: gitlab-ci
     name: GitLab CI/CD
     category: cicd
@@ -27,6 +40,15 @@ technologies:
     vendor: JetBrains
     default_ports: [8111]
     tags: [ci, cd]
+    fingerprints:
+      - signal: path
+        match: "/app/rest/server"
+        field: backend_services
+        confidence: 0.95
+      - signal: body
+        match: teamcity
+        field: backend_services
+        confidence: 0.85
   - id: circleci
     name: CircleCI
     category: cicd
@@ -48,6 +70,19 @@ technologies:
     docker_image: drone/drone:latest
     tags: [ci, cd]
     aliases: [drone-ci]
+    fingerprints:
+      - signal: path
+        match: "/api/user"
+        field: backend_services
+        confidence: 0.6
+      - signal: body
+        match: "drone ci"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: drone-server
+        field: backend_services
+        confidence: 0.95
   - id: buildkite
     name: Buildkite
     category: cicd
@@ -98,6 +133,19 @@ technologies:
     default_ports: [8080, 8443]
     tags: [gitops, cd]
     aliases: [argo-cd]
+    fingerprints:
+      - signal: path
+        match: "/api/v1/applications"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: "argo cd"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: argocd
+        field: backend_services
+        confidence: 0.9
   - id: fluxcd
     name: Flux CD
     category: cicd
@@ -122,3 +170,65 @@ technologies:
     category: cicd
     vendor: Harness
     tags: [ci, cd]
+
+  # ── Artifact Repositories ──
+  - id: artifactory
+    name: JFrog Artifactory
+    category: cicd
+    vendor: JFrog
+    default_ports: [8081, 8082]
+    docker_image: releases-docker.jfrog.io/jfrog/artifactory-oss:latest
+    tags: [artifact-repo]
+    fingerprints:
+      - signal: header
+        key: x-artifactory-id
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/artifactory/api/system/ping"
+        field: backend_services
+        confidence: 1.0
+  - id: nexus
+    name: Sonatype Nexus
+    category: cicd
+    vendor: Sonatype
+    default_ports: [8081]
+    docker_image: sonatype/nexus3:latest
+    tags: [artifact-repo]
+    fingerprints:
+      - signal: path
+        match: "/service/rest/v1/status"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "nexus repository"
+        field: backend_services
+        confidence: 0.95
+
+  # ── Automation / Config Management ──
+  - id: ansible-awx
+    name: AWX / Ansible Tower
+    category: cicd
+    open_source: true
+    vendor: Red Hat
+    default_ports: [80, 443]
+    docker_image: quay.io/ansible/awx:latest
+    tags: [automation, config-management]
+    aliases: [ansible-tower]
+    fingerprints:
+      - signal: path
+        match: "/api/v2/ping"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: "ansible tower"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "ansible awx"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: awx-manage
+        field: backend_services
+        confidence: 0.95

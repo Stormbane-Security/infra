@@ -1,4 +1,4 @@
-# Container runtimes, orchestrators, registries, and service meshes.
+# Container runtimes, orchestrators, registries, service meshes, and private cloud.
 technologies:
   # ── Container Runtimes ──
   - id: docker
@@ -35,6 +35,11 @@ technologies:
     default_ports: [6443, 10250]
     tags: [orchestrator]
     aliases: [k8s]
+    fingerprints:
+      - signal: header
+        key: x-kubernetes-pf-flowschema-uid
+        field: infra_layer
+        confidence: 1.0
   - id: k3s
     name: K3s
     category: container
@@ -63,6 +68,19 @@ technologies:
     default_ports: [6443, 8443]
     tags: [orchestrator]
     aliases: [ocp]
+    fingerprints:
+      - signal: header
+        key: x-openshift-token
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "openshift web console"
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/apis/apps.openshift.io"
+        field: backend_services
+        confidence: 1.0
   - id: nomad
     name: HashiCorp Nomad
     category: container
@@ -100,12 +118,40 @@ technologies:
     default_ports: [8500, 8501, 8600]
     docker_image: hashicorp/consul:latest
     tags: [service-mesh, service-discovery]
+    fingerprints:
+      - signal: path
+        match: "/v1/catalog/nodes"
+        field: backend_services
+        confidence: 1.0
+      - signal: header
+        key: x-consul-index
+        field: backend_services
+        confidence: 1.0
   - id: cilium
     name: Cilium
     category: container
     open_source: true
     vendor: CNCF/Isovalent
     tags: [service-mesh, ebpf, cni]
+
+  # ── Service Discovery ──
+  - id: nacos
+    name: Nacos
+    category: container
+    open_source: true
+    vendor: Alibaba
+    default_ports: [8848]
+    docker_image: nacos/nacos-server:latest
+    tags: [service-discovery, config]
+    fingerprints:
+      - signal: path
+        match: "/nacos/v1/cs/configs"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "nacos server"
+        field: backend_services
+        confidence: 0.95
 
   # ── Container Registries ──
   - id: dockerhub
@@ -126,6 +172,23 @@ technologies:
     vendor: CNCF/VMware
     default_ports: [80, 443]
     tags: [registry]
+    fingerprints:
+      - signal: path
+        match: "/api/v2.0/systeminfo"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: harbor_version
+        field: backend_services
+        confidence: 0.95
+      - signal: body
+        match: "harbor registry"
+        field: backend_services
+        confidence: 0.9
+      - signal: header
+        key: x-harbor-csrf-token
+        field: backend_services
+        confidence: 1.0
   - id: quay
     name: Quay
     category: container
@@ -133,6 +196,15 @@ technologies:
     vendor: Red Hat
     tags: [registry]
     aliases: [quay-io]
+    fingerprints:
+      - signal: path
+        match: "/api/v1/discovery"
+        field: backend_services
+        confidence: 0.9
+      - signal: body
+        match: "quay.io"
+        field: backend_services
+        confidence: 0.9
 
   # ── Package Management ──
   - id: helm
@@ -147,3 +219,84 @@ technologies:
     open_source: true
     vendor: Kubernetes SIG
     tags: [config-management, k8s]
+
+  # ── Private Cloud Platforms ──
+  - id: openstack
+    name: OpenStack
+    category: container
+    open_source: true
+    vendor: OpenInfra Foundation
+    tags: [private-cloud]
+    fingerprints:
+      - signal: body
+        match: "powered by openstack"
+        field: backend_services
+        confidence: 1.0
+      - signal: header
+        key: x-openstack-request-id
+        field: backend_services
+        confidence: 1.0
+  - id: openstack-keystone
+    name: OpenStack Keystone
+    category: auth
+    open_source: true
+    vendor: OpenInfra Foundation
+    default_ports: [5000, 35357]
+    tags: [private-cloud, identity]
+    fingerprints:
+      - signal: path
+        match: "/identity/v3"
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/v2.0/tokens"
+        field: backend_services
+        confidence: 0.9
+  - id: openstack-horizon
+    name: OpenStack Horizon
+    category: monitoring
+    open_source: true
+    vendor: OpenInfra Foundation
+    default_ports: [80, 443]
+    tags: [private-cloud, dashboard]
+    fingerprints:
+      - signal: body
+        match: "openstack dashboard"
+        field: backend_services
+        confidence: 1.0
+  - id: proxmox
+    name: Proxmox VE
+    category: container
+    open_source: true
+    vendor: Proxmox
+    default_ports: [8006]
+    tags: [private-cloud, hypervisor]
+    fingerprints:
+      - signal: body
+        match: "proxmox virtual environment"
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/api2/json"
+        field: backend_services
+        confidence: 0.95
+      - signal: body
+        match: pvemanagerversion
+        field: backend_services
+        confidence: 1.0
+  - id: cloudstack
+    name: Apache CloudStack
+    category: container
+    open_source: true
+    vendor: Apache Software Foundation
+    default_ports: [8080]
+    tags: [private-cloud]
+    fingerprints:
+      - signal: path
+        match: "/client/api"
+        field: backend_services
+        confidence: 0.95
+      - signal: body
+        match: cloudstack
+        field: backend_services
+        confidence: 0.85

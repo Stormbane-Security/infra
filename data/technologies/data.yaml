@@ -59,6 +59,20 @@ technologies:
     default_ports: [5984]
     docker_image: couchdb:latest
     tags: [nosql]
+    fingerprints:
+      - signal: header
+        key: server
+        match: couchdb
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/_utils"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "\"couchdb\""
+        field: backend_services
+        confidence: 0.95
   - id: cassandra
     name: Apache Cassandra
     category: database
@@ -96,6 +110,11 @@ technologies:
     docker_image: elasticsearch:8.14.0
     tags: [search]
     aliases: [elastic]
+    fingerprints:
+      - signal: path
+        match: "/_cat/indices"
+        field: backend_services
+        confidence: 1.0
   - id: opensearch
     name: OpenSearch
     category: database
@@ -124,6 +143,58 @@ technologies:
     default_ports: [7474, 7687]
     docker_image: neo4j:latest
     tags: [graph]
+    fingerprints:
+      - signal: path
+        match: "/db/neo4j/tx"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: "neo4j browser"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: neo4j_version
+        field: backend_services
+        confidence: 1.0
+
+  # ── Object Storage ──
+  - id: minio
+    name: MinIO
+    category: database
+    open_source: true
+    vendor: MinIO
+    default_ports: [9000, 9001]
+    docker_image: minio/minio:latest
+    tags: [object-storage, s3-compatible]
+    fingerprints:
+      - signal: header
+        key: server
+        match: minio
+        field: backend_services
+        confidence: 1.0
+      - signal: path
+        match: "/minio/health/live"
+        field: backend_services
+        confidence: 1.0
+      - signal: header
+        key: x-minio-deployment-id
+        field: backend_services
+        confidence: 1.0
+
+  # ── Database Admin UIs ──
+  - id: mongo-express
+    name: Mongo Express
+    category: database
+    open_source: true
+    vendor: Community
+    default_ports: [8081]
+    docker_image: mongo-express:latest
+    tags: [admin-ui]
+    fingerprints:
+      - signal: body
+        match: "mongo express"
+        field: backend_services
+        confidence: 1.0
 
   # ── Message Brokers & Streaming ──
   - id: kafka
@@ -143,6 +214,19 @@ technologies:
     docker_image: rabbitmq:3-management-alpine
     tags: [queue]
     aliases: [amqp]
+    fingerprints:
+      - signal: path
+        match: "/api/overview"
+        field: backend_services
+        confidence: 0.8
+      - signal: body
+        match: "rabbitmq management"
+        field: backend_services
+        confidence: 1.0
+      - signal: body
+        match: rabbitmq_version
+        field: backend_services
+        confidence: 1.0
   - id: nats
     name: NATS
     category: messaging
