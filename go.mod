@@ -1,4 +1,4 @@
-module github.com/stormbane/infra
+module github.com/stormbane-security/infra
 
 go 1.25.6
 
